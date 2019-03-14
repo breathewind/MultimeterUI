@@ -33,7 +33,7 @@ MainController::MainController()
  *             Name: MainController
  *      Function ID: 002
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Clear all project information.
  ******************************************************************************/
 void MainController::clearProject_information()
@@ -42,6 +42,7 @@ void MainController::clearProject_information()
     _project_file.clear();
     _project_path.clear();
     _project_file_full_path.clear();
+    _project_output_path.clear();
 }
 
 /******************************************************************************
@@ -61,17 +62,18 @@ void MainController::synchronizeCurrent_path(QString current_path)
  *             Name: updateProject_information
  *      Function ID: 004
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Update project information according to project name and
  *                   project path.
  ******************************************************************************/
 void MainController::updateProject_information(QString project_name, QString project_path)
 {
     _project_name = project_name;
-    _project_file = _project_name + MEASUREMENTUI_DAFAULT_PROJECT_SUFFIX;
-    _project_path = project_path;
-    _project_file_full_path = _project_path + MEASUREMENTUI_DIR_SYMBOL +
-                              _project_name + MEASUREMENTUI_DAFAULT_PROJECT_SUFFIX;
+    _project_file = _project_name + MULTIMETERUI_DAFAULT_PROJECT_SUFFIX;
+    _project_path = project_path + MULTIMETERUI_DIR_SYMBOL + _project_name;
+    _project_file_full_path = _project_path + MULTIMETERUI_DIR_SYMBOL +
+                              _project_name + MULTIMETERUI_DAFAULT_PROJECT_SUFFIX;
+    _project_output_path = _project_path + MULTIMETERUI_DIR_SYMBOL + MULTIMETERUI_DEFAUTL_OUTPUT_PAHT;
     synchronizeCurrent_path(project_path);
 }
 
@@ -96,13 +98,14 @@ void MainController::updateProject_information(QString project_file_full_path)
  *             Name: initMain_Window
  *      Function ID: 200
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to Main Window..
  ******************************************************************************/
 void MainController::initMainwindow()
 {
     _main_window = new MainWindow();
     connect(this, &MainController::signal_synchronizeCurrent_Path, _main_window, &MainWindow::slot_update_current_path);
+    connect(this, &MainController::signal_warning_occurs, _main_window, &MainWindow::slot_display_warning_message_box);
 }
 
 /******************************************************************************
@@ -138,11 +141,13 @@ void MainController::initRun_operaiton()
  *             Name: initFunction_operaiton
  *      Function ID: 203
  *      Create date: 19/02/2019
- * Last modify date: 19/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to Function operations.
  ******************************************************************************/
 void MainController::initFunction_operaiton()
 {
+    initSettings();
+    initCommand_Panel();
     initQuit();;
 }
 
@@ -150,12 +155,13 @@ void MainController::initFunction_operaiton()
  *             Name: initNew_Project
  *      Function ID: 211
  *      Create date: 16/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to New Project operations.
  ******************************************************************************/
 void MainController::initNew_Project()
 {
     _new_project_dialog = new New_Project_Dialog(_main_window);
+    /** Connect signals and slots related to click New Project menu action button in main window. */
     connect(_main_window, &MainWindow::signal_new_project_menu_action_triggered, _new_project_dialog, &New_Project_Dialog::slot_trigger_new_project_dialog);
     connect(_new_project_dialog, &New_Project_Dialog::signal_new_project_comfirmed, this, &MainController::slot_create_new_project);
     connect(this, &MainController::signal_synchronizeCurrent_Path, _new_project_dialog, &New_Project_Dialog::slot_update_current_path);
@@ -165,11 +171,12 @@ void MainController::initNew_Project()
  *             Name: initOpen_Project
  *      Function ID: 212
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to Open Project operations.
  ******************************************************************************/
 void MainController::initOpen_Project()
 {
+    /** Connect signals and slots related to click Open menu action button in main window. */
     connect(_main_window, &MainWindow::signal_open_project_menu_action_triggered, this, &MainController::slot_open_project);
 }
 
@@ -177,11 +184,12 @@ void MainController::initOpen_Project()
  *             Name: initSave_Project
  *      Function ID: 213
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to Save Project operations.
  ******************************************************************************/
 void MainController::initSave_Project()
 {
+    /** Connect signals and slots related to click Save Project menu action button in main window. */
     connect(_main_window, &MainWindow::signal_save_project_menu_action_triggered, this, &MainController::slot_save_project);
 }
 
@@ -189,11 +197,12 @@ void MainController::initSave_Project()
  *             Name: initSave_Project_As
  *      Function ID: 214
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to Save Project As operations.
  ******************************************************************************/
 void MainController::initSave_Project_As()
 {
+    /** Connect signals and slots related to click Close Project menu action button in main window. */
     connect(_main_window, &MainWindow::signal_save_project_as_menu_action_triggered, this, &MainController::slot_save_project_as);
 }
 
@@ -213,11 +222,12 @@ void MainController::initClose_Project()
  *             Name: initStart
  *      Function ID: 216
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to Start operations.
  ******************************************************************************/
 void MainController::initStart()
 {
+    /** Connect signals and slots related to click Start menu action button in main window. */
     connect(_main_window, &MainWindow::signal_start_menu_action_triggered, this, &MainController::slot_Start);
 }
 
@@ -225,23 +235,60 @@ void MainController::initStart()
  *             Name: initStop
  *      Function ID: 217
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to Stop operations.
  ******************************************************************************/
 void MainController::initStop()
 {
+    /** Connect signals and slots related to click Stop menu action button in main window. */
     connect(_main_window, &MainWindow::signal_stop_menu_action_triggered, this, &MainController::slot_Stop);
+}
+
+/******************************************************************************
+ *             Name: initSettings
+ *      Function ID: 218
+ *      Create date: 19/02/2019
+ * Last modify date: 14/03/2019
+ *      Description: Initilize functions related to Settings operations.
+ ******************************************************************************/
+void MainController::initSettings()
+{
+    _settings_dialog = new Settings_Dialog(_main_window);
+    /** Connect signals and slots related to click Settings menu action button in main window. */
+    connect(_main_window, &MainWindow::signal_settings_menu_action_triggered, this, &MainController::slot_settings);
+    /** Connect signals and slots related to close Settings dialog. */
+    connect(_settings_dialog, &Settings_Dialog::accepted, _main_window, &MainWindow::slot_close_settings_dialog);
+    connect(_settings_dialog, &Settings_Dialog::rejected, _main_window, &MainWindow::slot_close_settings_dialog);
+    /** Connect signals and slots related to clicl Apply button in Settings Dialog. */
+    connect(_settings_dialog, &Settings_Dialog::signal_modification_confirmed, this, &MainController::slot_update_data_from_settings);
+}
+
+/******************************************************************************
+ *             Name: initCommand_Panel
+ *      Function ID: 219
+ *      Create date: 19/02/2019
+ * Last modify date: 20/02/2019
+ *      Description: Initilize functions related to Command Panel operations.
+ ******************************************************************************/
+void MainController::initCommand_Panel()
+{
+    _command_panel = new Command_Panel(_main_window);
+    /** Connect signals and slots related to click Command panel menu action button in main window. */
+    connect(_main_window, &MainWindow::signal_command_panel_menu_action_triggered, this, &MainController::slot_command_panel);
+    /** Connect signals and slots related to close Command panel. */
+    connect(_command_panel, &Command_Panel::rejected, _main_window, &MainWindow::slot_close_command_panel);
 }
 
 /******************************************************************************
  *             Name: initQuit
  *      Function ID: 222
  *      Create date: 19/02/2019
- * Last modify date: 19/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Initilize functions related to Quit operations.
  ******************************************************************************/
 void MainController::initQuit()
 {
+    /** Connect signals and slots related to click Quit menu action button in main window. */
     connect(_main_window, &MainWindow::signal_quit_menu_action_triggered, this, &MainController::slot_Quit);
     connect(this, &MainController::signal_confirm_quit_application, _main_window, &MainWindow::slot_confirm_quit_application);
 }
@@ -259,10 +306,30 @@ void MainController::showMainwindow()
 }
 
 /******************************************************************************
+ *             Name: UpdateSettings
+ *      Function ID: 301
+ *      Create date: 21/02/2019
+ * Last modify date: 22/02/2019
+ *      Description: Update all settings opertions.
+ ******************************************************************************/
+void MainController::UpdateSettings()
+{
+    QStringList data_list;
+
+    data_list.append(_dmm_baudrate);
+    data_list.append(_dmm_databits);
+    data_list.append(_dmm_stopbits);
+    data_list.append(_dmm_parity);
+    data_list.append(_dmm_flowcontrol);
+
+    _settings_dialog->updateDMM_combobox(data_list);
+}
+
+/******************************************************************************
  *             Name: slot_create_new_project
  *      Function ID: 700
  *      Create date: 16/02/2019
- * Last modify date: 19/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Slot for new project created.
  ******************************************************************************/
 void MainController::slot_create_new_project(QString project_name, QString project_path)
@@ -271,7 +338,10 @@ void MainController::slot_create_new_project(QString project_name, QString proje
 
     handleNew_Project();
 
-    _main_window->changeDisplay_status(MAINWINDOW_PROJECT_ACTIVATE);
+    if(handleNew_Project()){
+        _main_window->setWindowTitle(QString("%1 - %2").arg(APP_NAME).arg(_project_name));
+        _main_window->changeDisplay_status(MAINWINDOW_PROJECT_ACTIVATE);
+    }
 
 #ifdef MAINCONTROLLER_DEBUG
     qDebug() << "+ MainController: New Project";
@@ -291,7 +361,10 @@ void MainController::slot_open_project(QString project_file_full_path)
     if(project_file_full_path.length() > 0){
         updateProject_information(project_file_full_path);
 
-        _main_window->changeDisplay_status(MAINWINDOW_PROJECT_ACTIVATE);
+        if(handleOpen_Project()){
+            _main_window->setWindowTitle(QString("%1 - %2").arg(APP_NAME).arg(_project_name));
+            _main_window->changeDisplay_status(MAINWINDOW_PROJECT_ACTIVATE);
+        }
 
         handleOpen_Project();
     }
@@ -386,6 +459,30 @@ void MainController::slot_Stop()
 }
 
 /******************************************************************************
+ *             Name: slot_settings
+ *      Function ID: 707
+ *      Create date: 19/02/2019
+ * Last modify date: 19/02/2019
+ *      Description: Slot for displaying Settings panel.
+ ******************************************************************************/
+void MainController::slot_settings()
+{
+    handleSettings();
+}
+
+/******************************************************************************
+ *             Name: slot_command_panel
+ *      Function ID: 708
+ *      Create date: 19/02/2019
+ * Last modify date: 19/02/2019
+ *      Description: Slot for displaying Command panel.
+ ******************************************************************************/
+void MainController::slot_command_panel()
+{
+    handleCommand_Panel();
+}
+
+/******************************************************************************
  *             Name: slot_Stop
  *      Function ID: 711
  *      Create date: 19/02/2019
@@ -413,5 +510,22 @@ void MainController::printProject_information()
     qDebug() << "= Project file full path: " <<  _project_file_full_path;
     qDebug() << "= Current path: " <<  _current_path;
     qDebug() << "------------------------------------------------------";
+}
+
+/******************************************************************************
+ *             Name: debug_printSerial_inforation -Debug function
+ *      Function ID: 903
+ *      Create date: 24/02/2019
+ * Last modify date: 24/02/2019
+ *      Description: Print serial information.
+ ******************************************************************************/
+void MainController::debug_printSerial_information()
+{
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << "DMM Current Port"            << _dmm_port;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << MAINCONTTROLLER_SERIAL_DMM_BAUDRATE_TEXT << _dmm_baudrate;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << MAINCONTTROLLER_SERIAL_DMM_DATABITS_TEXT << _dmm_databits;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << MAINCONTTROLLER_SERIAL_DMM_BAUDRATE_TEXT << _dmm_stopbits;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << MAINCONTTROLLER_SERIAL_DMM_PARITY_TEXT   <<  _dmm_parity;;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << MAINCONTTROLLER_SERIAL_DMM_FLOWCONTROL_TEXT << _dmm_flowcontrol;
 }
 #endif

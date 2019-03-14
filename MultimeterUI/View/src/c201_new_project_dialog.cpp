@@ -1,8 +1,8 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 07/02/2019
- * Last modify date: 18/02/2019
- *      Description: New project dialog of MeasurementUI application.
+ * Last modify date: 14/03/2019
+ *      Description: New project dialog of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
  *                   3XX - User level functions
@@ -88,7 +88,7 @@ void New_Project_Dialog::slot_trigger_new_project_dialog()
 //    qDebug() << "slot_trigger_new_project_dialog";
 
     _new_project_index++;
-    ui->lineEdit_ProjectName->setText(MEASUREMENTUI_DAFAULT_PROJECT_NAME+QString::number(_new_project_index));
+    ui->lineEdit_ProjectName->setText(MULTIMETERUI_DAFAULT_PROJECT_NAME+QString::number(_new_project_index));
     ui->lineEdit_Loaction->setText(_current_path);
     show();
 }

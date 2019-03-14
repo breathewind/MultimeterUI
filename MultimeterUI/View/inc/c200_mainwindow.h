@@ -1,8 +1,8 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 19/02/2019
- *      Description: Main window of MeasurementUI application.
+ * Last modify date: 14/03/2019
+ *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
  *                   3XX - User level functions
@@ -50,11 +50,27 @@ public:
     /** Function 301: Reset display status for all the menu actions. */
     void resetAll_menu_actions();
 
+    /** Function 800: Set Settings menu action seleted. */
+    void setSettings_action_checked(bool flag);
+    /** Function 801: Get if Settings menu action seleted. */
+    bool getSettings_action_checked();
+    /** Function 802: Set Command panel menu action seleted. */
+    void setCommand_panel_action_checked(bool flag);
+    /** Function 803: Get if Command panel menu action seleted. */
+    bool getCommand_panel_action_checked();
 public slots:
     /** Function 750: Slot for updating current path. */
     void slot_update_current_path(QString current_path);
     /** Function 751: Slot for quit application confirmed. */
     void slot_confirm_quit_application();
+
+    /** Function 752: Slot for closing Settings dialog. */
+    void slot_close_settings_dialog();
+    /** Function 753: Slot for closing Command panel. */
+    void slot_close_command_panel();
+
+    /** Function 755: Slot for displaying warning message box. */
+    void slot_display_warning_message_box(QString text);
 
 private:
     /** Function 002: Run time action group initialization. */
@@ -88,6 +104,11 @@ private:
     /** Function 206: Function for Stop menu action triggered. */
     void handleStop_triggered();
 
+    /** Function 207: Function for Settings menu action triggered. */
+    void handleSettings_triggered();
+    /** Function 208: Function for Command Panel menu action triggered. */
+    void handleCommand_Panel_triggered();
+
     Ui::MainWindow *ui;
 
     QActionGroup *_run_time_group;
@@ -117,6 +138,11 @@ private slots:
     /** Function 706: Slot for Stop menu action triggered. */
     void on_actionStop_triggered();
 
+    /** Function 707: Slot for Settings menu action triggered. */
+    void on_actionSettings_triggered();
+    /** Function 708: Slot for Command Panel menu action triggered. */
+    void on_actionCommand_Panel_triggered();
+
     /** Function 710: Slot for Information menu action triggered. */
     void on_actionInformation_triggered();
     /** Function 711: Slot for Quit menu action triggered. */
@@ -138,6 +164,11 @@ signals:
     void signal_start_menu_action_triggered();
     /** Signal 007: Signal emitted when Stop menu action triggered. */
     void signal_stop_menu_action_triggered();
+
+    /** Signal 008: Signal emitted when Settings menu action triggered. */
+    void signal_settings_menu_action_triggered();
+    /** Signal 009: Signal emitted when Command panel menu action triggered. */
+    void signal_command_panel_menu_action_triggered();
 
     /** Signal 012: Signal emitted when Quit menu action triggered. */
     void signal_quit_menu_action_triggered();

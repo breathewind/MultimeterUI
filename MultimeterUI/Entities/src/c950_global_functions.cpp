@@ -27,7 +27,7 @@ Global_Functions::Global_Functions()
  ******************************************************************************/
 QString Global_Functions::extractFile_path(QString file_full_path)
 {
-    return file_full_path.left(file_full_path.lastIndexOf(MEASUREMENTUI_DIR_SYMBOL));
+    return file_full_path.left(file_full_path.lastIndexOf(MULTIMETERUI_DIR_SYMBOL));
 }
 
 /***********************************************************************
@@ -39,7 +39,7 @@ QString Global_Functions::extractFile_path(QString file_full_path)
  ***********************************************************************/
 QString Global_Functions::extractFile_full_name(QString file_full_path)
 {
-    return file_full_path.right(file_full_path.size() - file_full_path.lastIndexOf(MEASUREMENTUI_DIR_SYMBOL) - 1);
+    return file_full_path.right(file_full_path.size() - file_full_path.lastIndexOf(MULTIMETERUI_DIR_SYMBOL) - 1);
 }
 
 /***********************************************************************

@@ -35,7 +35,12 @@ SOURCES += \
     View/src/c200_01_mainwindow_file_menu_action.cpp \
     Controller/src/c999_01_maincontroller_file_menu_action.cpp \
     View/src/c200_02_mainwindow_run_menu_action.cpp \
-    Controller/src/c999_02_maincontroller_run_menu_action.cpp
+    Controller/src/c999_02_maincontroller_run_menu_action.cpp \
+    View/src/c202_settings_dialog.cpp \
+    View/src/c203_command_panel.cpp \
+    View/src/c200_03_mainwindow_function_menu_action.cpp \
+    Controller/src/c999_11_maincontroller_functional_slots.cpp \
+    Controller/src/c999_03_maincontroller_function_menu_action.cpp
 
 HEADERS += \
         View/inc/c200_mainwindow.h\
@@ -44,12 +49,17 @@ HEADERS += \
     View/inc/c201_new_project_dialog.h \
     Controller/inc/c999_maincontroller.h \
     h000_global_parameters.h \
-    Entities/inc/c950_global_functions.h
+    Entities/inc/c950_global_functions.h \
+    View/inc/c202_settings_dialog.h \
+    h001_serial_parameters.h \
+    View/inc/c203_command_panel.h
 
 
 FORMS += \
         View/forms/c200_mainwindow.ui \
-    View/forms/c201_new_project_dialog.ui
+    View/forms/c201_new_project_dialog.ui \
+    View/forms/c202_settings_dialog.ui \
+    View/forms/c203_command_panel.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

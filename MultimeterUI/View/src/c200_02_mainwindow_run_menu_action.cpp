@@ -1,8 +1,8 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 18/02/2019
- * Last modify date: 19/02/2019
- *      Description: Main window of MeasurementUI application.
+ * Last modify date: 14/03/2019
+ *      Description: Main window of Multimeter application.
  *                   - Functions related to run menu actions.
  ******************************************************************************/
 #include "View/inc/c200_mainwindow.h"

@@ -13,5 +13,7 @@
         <file>Resource/icons/stop.png</file>
         <file>Resource/icons/pause1.png</file>
         <file>Resource/icons/start2.png</file>
+        <file>Resource/icons/command.png</file>
+        <file>Resource/icons/monitor.png</file>
     </qresource>
 </RCC>

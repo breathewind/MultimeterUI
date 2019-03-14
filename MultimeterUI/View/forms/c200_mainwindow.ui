@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,6 +31,8 @@
    <addaction name="actionStop"/>
    <addaction name="separator"/>
    <addaction name="actionSettings"/>
+   <addaction name="actionCommand_Panel"/>
+   <addaction name="actionOutput_Panel"/>
    <addaction name="actionInformation"/>
    <addaction name="actionQuit"/>
   </widget>
@@ -50,7 +52,7 @@
       <x>1711</x>
       <y>108</y>
       <width>176</width>
-      <height>222</height>
+      <height>203</height>
      </rect>
     </property>
     <property name="title">
@@ -62,7 +64,6 @@
     <addaction name="actionSave_project_as"/>
     <addaction name="actionClose_project"/>
     <addaction name="separator"/>
-    <addaction name="actionSettings"/>
     <addaction name="actionInformation"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -74,8 +75,17 @@
     <addaction name="actionStart"/>
     <addaction name="actionStop"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionCommand_Panel"/>
+    <addaction name="actionOutput_Panel"/>
+    <addaction name="actionSettings"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOperation"/>
+   <addaction name="menuView"/>
   </widget>
   <action name="actionNew_Project">
    <property name="icon">
@@ -114,6 +124,9 @@
    </property>
   </action>
   <action name="actionSettings">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../../resource.qrc">
      <normaloff>:/icons/Resource/icons/settings.png</normaloff>
@@ -175,6 +188,33 @@
    </property>
    <property name="text">
     <string>Information</string>
+   </property>
+  </action>
+  <action name="actionCommand_Panel">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/icons/Resource/icons/command.png</normaloff>:/icons/Resource/icons/command.png</iconset>
+   </property>
+   <property name="text">
+    <string>Command Panel</string>
+   </property>
+   <property name="toolTip">
+    <string>Command Panel</string>
+   </property>
+  </action>
+  <action name="actionOutput_Panel">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/icons/Resource/icons/monitor.png</normaloff>:/icons/Resource/icons/monitor.png</iconset>
+   </property>
+   <property name="text">
+    <string>Output Panel</string>
    </property>
   </action>
  </widget>

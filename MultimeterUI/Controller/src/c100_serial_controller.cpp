@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 28/01/2019
- * Last modify date: 31/01/2019
+ * Last modify date: 14/03/2019
  *      Description: Serial port controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -16,7 +16,7 @@
  *             Name: Serial_Controller
  *      Function ID: 000
  *      Create date: 28/01/2019
- * Last modify date: 31/01/2019
+ * Last modify date: 14/03/2019
  *      Description: Construction function.
  ******************************************************************************/
 Serial_Controller::Serial_Controller()
@@ -24,7 +24,10 @@ Serial_Controller::Serial_Controller()
     _serial_port = new QSerialPort();
     _data_received_flag = false;
     connect(_serial_port, SIGNAL(readyRead()), this, SLOT(handleReceived_Data()));
+
+#ifdef SERIAL_CONTROLLER_DEBUG
     connect(this, SIGNAL(data_received(QString)), this, SLOT(handleTimeout(QString)));
+#endif
 }
 
 /******************************************************************************
@@ -74,10 +77,10 @@ void Serial_Controller::closeSerial(){
 }
 
 /******************************************************************************
- *             Name: writeCommand
+ *             Name: writeDMM_command
  *      Function ID: 303
  *      Create date: 28/01/2019
- * Last modify date: 31/01/2019
+ * Last modify date: 25/02/2019
  *      Description: Send command via serial communication.
  *
  * @return - Number greater than -1: the number of bytes that were actually
@@ -86,19 +89,21 @@ void Serial_Controller::closeSerial(){
  *             operation;
  *           SERIAL_CONTROLLER_WRITE_TIME_OUT(-2): Write operation timed out.
  ******************************************************************************/
-qint64 Serial_Controller::writeCommand(QString command)
+qint64 Serial_Controller::writeDMM_command(QString command,  bool command_feedback)
 {
     qint64 ret = 0;
     QByteArray ba = command.toLocal8Bit();
     ba.append('\n');
     const char *c_command = ba.data();
+#ifdef SERIAL_CONTROLLER_DEBUG
     qDebug() << c_command;
+#endif
     ret = _serial_port->write(c_command, ba.length());
     if(!_serial_port->waitForBytesWritten()){
         ret = -2;
     }
-    if(ret > 0){
-        _databuffer.clear();
+    _databuffer.clear();
+    if(ret > 0 && command_feedback){
         _data_received_flag = true;
     }
     return ret;
@@ -134,23 +139,6 @@ void Serial_Controller::handleReceived_Data()
         }
     }
 }
-
-#ifdef SERIAL_CONTROLLER_DEBUG
-/******************************************************************************
- *             Name: handleTimeout
- *      Function ID: 900
- *      Create date: 29/01/2019
- * Last modify date: 31/01/2019
- *      Description: Handler for received data timeout from serial port.
- *                   Debug function: Print received data from serial
- *                   communiction.
- ******************************************************************************/
-void Serial_Controller::handleTimeout(QString data)
-{
-//    qDebug() << data;
-    qDebug() << QString("Data received: %1.").arg(data.toDouble());
-}
-#endif
 
 /******************************************************************************
  *             Name: setPortName
@@ -307,6 +295,23 @@ QSerialPort *Serial_Controller::getSerial_port()
 {
     return _serial_port;
 }
+
+#ifdef SERIAL_CONTROLLER_DEBUG
+/******************************************************************************
+ *             Name: handleTimeout
+ *      Function ID: 900
+ *      Create date: 29/01/2019
+ * Last modify date: 31/01/2019
+ *      Description: Handler for received data timeout from serial port.
+ *                   Debug function: Print received data from serial
+ *                   communiction.
+ ******************************************************************************/
+void Serial_Controller::handleTimeout(QString data)
+{
+//    qDebug() << data;
+    qDebug() << QString("Data received: %1.").arg(data.toDouble());
+}
+#endif
 
 
 

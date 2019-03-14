@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 28/01/2019
- * Last modify date: 31/01/2019
+ * Last modify date: 14/03/2019
  *      Description: Serial port controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -18,12 +18,15 @@
 #include <QtSerialPort/QSerialPort>
 #include <QTimer>
 
-#define SERIAL_CONTROLLER_DEBUG
+#include "h000_global_parameters.h"
+#include "h001_serial_parameters.h"
 
 #define SERIAL_CONTROLLER_READ_TIMEOUT 100
 
 #define SERIAL_CONTROLLER_WRITE_ERROR    -1
 #define SERIAL_CONTROLLER_WRITE_TIME_OUT -2
+
+#define SERIAL_CONTROLLER_TYPE_DMM 0
 
 #ifdef SERIAL_CONTROLLER_DEBUG
 #include <QDebug>
@@ -43,7 +46,7 @@ public:
     /** Function 302: Close serial communication. */
     void closeSerial();
     /** Function 303: Send command via serial communication. */
-    qint64 writeCommand(QString command);
+    qint64 writeDMM_command(QString command, bool command_feedback = true);
     /** Function 304: Read data via serial communication. */
     QString readData();
 
@@ -103,6 +106,7 @@ private:
     bool _data_received_flag;
 signals:
     void data_received(QString data);
+    void signal_pure_data_received(QString data);
 };
 
 #endif // C000_SERIAL_CONTROLLER_H

@@ -1,8 +1,8 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 07/02/2019
- * Last modify date: 18/02/2019
- *      Description: New project dialog of MeasurementUI application.
+ * Last modify date: 14/03/2019
+ *      Description: New project dialog of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
  *                   3XX - User level functions

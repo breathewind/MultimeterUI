@@ -1,8 +1,8 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
- *      Description: Main window of MeasurementUI application.
+ * Last modify date: 14/03/2019
+ *      Description: Main window of Multimeter application.
  *                   - Functions related to file menu actions.
  ******************************************************************************/
 #include "View/inc/c200_mainwindow.h"
@@ -34,7 +34,7 @@ QString MainWindow::handleOpen_Project_triggered()
 #ifdef MAINWINDOW_DEBUG
     qDebug() << "+ MainWindow: handleOpen_Project_triggered";
 #endif
-    QString project_file_full_path = QFileDialog::getOpenFileName(this, tr("Open project"), _current_path, MEASUREMENTUI_DAFAULT_PROJECT_FILE_TYPE);
+    QString project_file_full_path = QFileDialog::getOpenFileName(this, tr("Open project"), _current_path, MULTIMETERUI_DAFAULT_PROJECT_FILE_TYPE);
     return project_file_full_path;
 }
 
@@ -64,7 +64,7 @@ QString MainWindow::handleSave_Project_As_triggered()
 #ifdef MAINWINDOW_DEBUG
     qDebug() << "+ MainWindow: handleSave_Project_As_triggered";
 #endif
-    QString project_file_full_path = QFileDialog::getSaveFileName(this, tr("Save project as"), _current_path, MEASUREMENTUI_DAFAULT_PROJECT_FILE_TYPE);
+    QString project_file_full_path = QFileDialog::getSaveFileName(this, tr("Save project as"), _current_path, MULTIMETERUI_DAFAULT_PROJECT_FILE_TYPE);
     return project_file_full_path;
 }
 

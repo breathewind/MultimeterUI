@@ -1,8 +1,8 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 19/02/2019
- *      Description: Main window of MeasurementUI application.
+ * Last modify date: 14/03/2019
+ *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
  *                   3XX - User level functions
@@ -18,7 +18,7 @@
  *             Name: MainWindow
  *      Function ID: 000
  *      Create date: 30/01/2019
- * Last modify date: 19/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Construction function.
  ******************************************************************************/
 MainWindow::MainWindow(QWidget *parent) :
@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("MeasurementUI");
+    setWindowTitle(APP_NAME);
 
     initializeRun_time_group();
     initializeFile_group();
@@ -83,13 +83,15 @@ void MainWindow::initializeFile_group()
  *             Name: initializeSetting_group
  *      Function ID: 004
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Setting action group initialization.
  ******************************************************************************/
 void MainWindow::initializeSetting_group()
 {
     _setting_group = new QActionGroup(this);
     _setting_group->addAction(ui->actionSettings);
+    _setting_group->addAction(ui->actionCommand_Panel);
+    _setting_group->setExclusive(false);
 }
 
 /******************************************************************************
@@ -179,13 +181,15 @@ void MainWindow::changeDisplay_status(bool display_flag)
 
 /******************************************************************************
  *             Name: resetAll_menu_actions
- *      Function ID: 300
+ *      Function ID: 301
  *      Create date: 19/02/2019
- * Last modify date: 19/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Reset display status for all the menu actions.
  ******************************************************************************/
 void MainWindow::resetAll_menu_actions()
 {
+    setSettings_action_checked(false);
+    setCommand_panel_action_checked(false);
 
     setRun_menu_action_enable(!MAINWINDOW_PROJECT_RUNNING);
     changeDisplay_status(MAINWINDOW_PROJECT_DEACTIVATE);
@@ -284,15 +288,41 @@ void MainWindow::on_actionStop_triggered()
 }
 
 /******************************************************************************
+ *             Name: on_actionSettings_triggered
+ *      Function ID: 707
+ *      Create date: 19/02/2019
+ * Last modify date: 19/02/2019
+ *      Description: Slot for Settings menu action triggered.
+ ******************************************************************************/
+void MainWindow::on_actionSettings_triggered()
+{
+    handleSettings_triggered();
+    emit signal_settings_menu_action_triggered();
+}
+
+/******************************************************************************
+ *             Name: on_actionCommand_Panel_triggered
+ *      Function ID: 708
+ *      Create date: 19/02/2019
+ * Last modify date: 19/02/2019
+ *      Description: Slot for Command Panel menu action triggered.
+ ******************************************************************************/
+void MainWindow::on_actionCommand_Panel_triggered()
+{
+    handleCommand_Panel_triggered();
+    emit signal_command_panel_menu_action_triggered();
+}
+
+/******************************************************************************
  *             Name: on_actionInformation_triggered
  *      Function ID: 710
  *      Create date: 31/01/2019
- * Last modify date: 31/01/2019
+ * Last modify date: 14/03/2019
  *      Description: Slot for Information menu action triggered.
  ******************************************************************************/
 void MainWindow::on_actionInformation_triggered()
 {
-    QMessageBox::information(this, "Information", "Measurement UI\nCreator: Wenlong Wang\nVersion: 0.0.0");
+    QMessageBox::information(this, "Information", QString("%1\nCreator: Wenlong Wang\nVersion: %2").arg(APP_NAME).arg(VERSION_ID));
 }
 
 /******************************************************************************
@@ -327,12 +357,94 @@ void MainWindow::slot_update_current_path(QString current_path)
  *             Name: slot_confirm_quit_application
  *      Function ID: 751
  *      Create date: 19/02/2019
- * Last modify date: 19/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Slot for quit application confirmed.
  ******************************************************************************/
 void MainWindow::slot_confirm_quit_application()
 {
-    QApplication::closeAllWindows();
+    close();
 }
 
+/******************************************************************************
+ *             Name: slot_close_settings_dialog
+ *      Function ID: 752
+ *      Create date: 20/02/2019
+ * Last modify date: 20/02/2019
+ *      Description: Slot for closing Settings dialog.
+ ******************************************************************************/
+void MainWindow::slot_close_settings_dialog()
+{
+    ui->actionSettings->setChecked(false);
+}
 
+/******************************************************************************
+ *             Name: slot_close_command_panel
+ *      Function ID: 753
+ *      Create date: 20/02/2019
+ * Last modify date: 20/02/2019
+ *      Description: Slot for closing Command panel.
+ ******************************************************************************/
+void MainWindow::slot_close_command_panel()
+{
+    ui->actionCommand_Panel->setChecked(false);
+}
+
+/******************************************************************************
+ *             Name: slot_display_warning_message_box
+ *      Function ID: 755
+ *      Create date: 20/02/2019
+ * Last modify date: 20/02/2019
+ *      Description: Slot for displaying warning message box.
+ ******************************************************************************/
+void MainWindow::slot_display_warning_message_box(QString text)
+{
+    QMessageBox::warning(this, "Warning", text);
+}
+
+/******************************************************************************
+ *             Name: setSettings_action_seleted
+ *      Function ID: 800
+ *      Create date: 19/02/2019
+ * Last modify date: 19/02/2019
+ *      Description: Set Settings menu action seleted.
+ ******************************************************************************/
+void MainWindow::setSettings_action_checked(bool flag)
+{
+    ui->actionSettings->setChecked(flag);
+}
+
+/******************************************************************************
+ *             Name: getSettings_action_checked
+ *      Function ID: 801
+ *      Create date: 19/02/2019
+ * Last modify date: 19/02/2019
+ *      Description: Get if Settings menu action is seleted.
+ ******************************************************************************/
+bool MainWindow::getSettings_action_checked()
+{
+    return ui->actionSettings->isChecked();
+}
+
+/******************************************************************************
+ *             Name: setCommand_panel_action_checked
+ *      Function ID: 802
+ *      Create date: 19/02/2019
+ * Last modify date: 19/02/2019
+ *      Description: Set Command panel menu action seleted.
+ ******************************************************************************/
+void MainWindow::setCommand_panel_action_checked(bool flag)
+{
+    ui->actionCommand_Panel->setChecked(flag);
+}
+
+/******************************************************************************
+ *             Name: getCommand_panel_action_checked
+ *      Function ID: 803
+ *      Create date: 19/02/2019
+ * Last modify date: 19/02/2019
+ *      Description: Get if Command panel menu action is seleted.
+ ******************************************************************************/
+bool MainWindow::getCommand_panel_action_checked()
+{
+    return ui->actionCommand_Panel->isChecked();
+}

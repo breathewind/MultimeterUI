@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 14/03/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -13,12 +13,27 @@
 #ifndef C999_MAINCONTROLLER_H
 #define C999_MAINCONTROLLER_H
 
+#define MAINCONTTROLLER_SETTINGS_DISPLAY_TEXT       "settings_display"
+#define MAINCONTTROLLER_COMMAND_PANEL_DISPLAY_TEXT  "command_panel_display"
+#define MAINCONTTROLLER_OUTPUT_PANEL_DISPLAY_TEXT   "output_panel_display"
+
+#define MAINCONTTROLLER_SERIAL_DMM_BAUDRATE_TEXT    "dmm_baudrate"
+#define MAINCONTTROLLER_SERIAL_DMM_DATABITS_TEXT    "dmm_databits"
+#define MAINCONTTROLLER_SERIAL_DMM_STOPBITS_TEXT    "dmm_stopbits"
+#define MAINCONTTROLLER_SERIAL_DMM_PARITY_TEXT      "dmm_parity"
+#define MAINCONTTROLLER_SERIAL_DMM_FLOWCONTROL_TEXT "dmm_flowcontrol"
+
 #include <QObject>
 
 #include "h000_global_parameters.h"
 #include "Entities/inc/c950_global_functions.h"
+
+#include "Controller/inc/c100_serial_controller.h"
+
 #include "View/inc/c200_mainwindow.h"
 #include "View/inc/c201_new_project_dialog.h"
+#include "View/inc/c202_settings_dialog.h"
+#include "View/inc/c203_command_panel.h"
 
 class MainController : public QObject
 {
@@ -66,13 +81,18 @@ private:
     /** Function 217: Initilize functions related to Stop operations. */
     void initStop();
 
+    /** Function 218: Initilize functions related to Settings operations. */
+    void initSettings();
+    /** Function 219: Initilize functions related to Command Panel operations. */
+    void initCommand_Panel();
+
     /** Function 222: Initilize functions related to Quit operations. */
     void initQuit();
 
     /** Function 231: Function for handle operations related to New Project. */
-    void handleNew_Project();
+    bool handleNew_Project();
     /** Function 232: Function for handle operations related to Open Project. */
-    void handleOpen_Project();
+    bool handleOpen_Project();
     /** Function 233: Function for handle operations related to Save Project. */
     void handleSave_Project();
     /** Function 234: Function for handle operations related to Save Project as. */
@@ -85,19 +105,46 @@ private:
     /** Function 237: Function for handle operations related to Stop. */
     void handleStop();
 
+    /** Function 238: Function for handle operations related to Settings. */
+    void handleSettings();
+    /** Function 239: Function for handle operations related to Command Panel. */
+    void handleCommand_Panel();
+
+    /** Function 301: Update all settings opertions. */
+    void UpdateSettings();
 #ifdef MAINCONTROLLER_DEBUG
     /** Function 900: Print project information. -Debug function*/
     void printProject_information();
+    /** Function 903: Print serial information. -Debug function */
+    void debug_printSerial_information();
 #endif
 
     MainWindow* _main_window;
 
+    /** Parameters for file operations. */
     New_Project_Dialog* _new_project_dialog;
+
     QString _project_name;
     QString _project_file;
     QString _project_path;
     QString _project_file_full_path;
     QString _current_path;
+
+    QString _project_output_path;
+    QString _output_file_name;
+
+    /** Parameters for serial communication. */
+    Settings_Dialog* _settings_dialog;
+
+    QString _dmm_port;
+    QString _dmm_baudrate;
+    QString _dmm_databits;
+    QString _dmm_stopbits;
+    QString _dmm_parity;
+    QString _dmm_flowcontrol;
+
+    /** Parameters for control measurement. */
+    Command_Panel* _command_panel;
 
 private slots:
     /** Function 700: Slot for new project created. */
@@ -116,14 +163,23 @@ private slots:
     /** Function 706: Slot for stoping current measurement. */
     void slot_Stop();
 
+    /** Function 707: Slot for displaying Settings panel. */
+    void slot_settings();
+    /** Function 708: Slot for displaying Command panel. */
+    void slot_command_panel();
+
     /** Function 711: Slot for quiting application. */
     void slot_Quit();
 
+    /** Function 750: Slot for updating data from settings dialog to main controller. */
+    void slot_update_data_from_settings(QList<QStringList> data_set);
 signals:
     /** Signal 001: Signal for synchronizing project path. */
     void signal_synchronizeCurrent_Path(QString project_path);
     /** Signal 002: Signal for comfirming quit appliaciton. */
     void signal_confirm_quit_application();
+    /** Signal 003: Signal emitted when a warning event occurs. */
+    void signal_warning_occurs(QString text);
 };
 
 #endif // C999_MAINCONTROLLER_H
