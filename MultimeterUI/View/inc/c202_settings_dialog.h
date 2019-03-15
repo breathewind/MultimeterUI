@@ -37,6 +37,8 @@ public:
     void initDMM_group();
     /** Function 003: Update port combobbox. */
     void updateSerial_port_combobox(QStringList data);
+    /** Function 004: Set all combobox by default settings. */
+    void setCombobox_default();
 
     /** Function 300: Show window and record its postion. */
     void showDialog();
@@ -44,6 +46,8 @@ public:
     void updateDMM_combobox(QStringList data);
     /** Function 302: Rescan serial ports. */
     void rescanSerial_port();
+    /** Function 303: Set all frames as default values. */
+    void resetAll_frames();
     /** Function 304: Retrieve data from all DMM combobbox. */
     QStringList retrieveDMM_data();
 

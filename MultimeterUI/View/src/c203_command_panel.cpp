@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 15/03/2019
  *      Description: Command Panel dialog of MultimeterUI application.
  *
  *  Function Number: 0XX - Normal logic functions

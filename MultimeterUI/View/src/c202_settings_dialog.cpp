@@ -75,6 +75,24 @@ void Settings_Dialog::updateSerial_port_combobox(QStringList data)
 }
 
 /******************************************************************************
+ *             Name: setCombobox_default
+ *      Function ID: 004
+ *      Create date: 15/03/2019
+ * Last modify date: 15/03/2019
+ *      Description: Set all combobox by default settings.
+ ******************************************************************************/
+void Settings_Dialog::setCombobox_default()
+{
+    rescanSerial_port();
+
+    ui->comboBox_DMM_baudrate->setCurrentText(DMM_BAUDRATE);
+    ui->comboBox_DMM_databits->setCurrentText(DMM_DATABITS);
+    ui->comboBox_DMM_stopbits->setCurrentText(DMM_STOPBITS);
+    ui->comboBox_DMM_parity->setCurrentText(DMM_PARITY);
+    ui->comboBox_DMM_flowcontrol->setCurrentText(DMM_FLOWCONTROL);
+}
+
+/******************************************************************************
  *             Name: showDialog
  *      Function ID: 300
  *      Create date: 20/02/2019
@@ -114,6 +132,18 @@ void Settings_Dialog::updateDMM_combobox(QStringList data)
 void Settings_Dialog::rescanSerial_port()
 {
     updateSerial_port_combobox(Serial_definitions::getSerial_port_name());
+}
+
+/******************************************************************************
+ *             Name: resetAll_frames
+ *      Function ID: 303
+ *      Create date: 15/03/2019
+ * Last modify date: 15/03/2019
+ *      Description: Set all frames as default values.
+ ******************************************************************************/
+void Settings_Dialog::resetAll_frames()
+{
+    setCombobox_default();
 }
 
 /******************************************************************************

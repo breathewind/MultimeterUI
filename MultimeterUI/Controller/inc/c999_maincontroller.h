@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 15/03/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -22,6 +22,9 @@
 #define MAINCONTTROLLER_SERIAL_DMM_STOPBITS_TEXT    "dmm_stopbits"
 #define MAINCONTTROLLER_SERIAL_DMM_PARITY_TEXT      "dmm_parity"
 #define MAINCONTTROLLER_SERIAL_DMM_FLOWCONTROL_TEXT "dmm_flowcontrol"
+
+#define MAINCONTROLLER_DIR_CREATE_SUCCEED 0
+#define MAINCONTROLLER_DIR_CREATE_FAIL    1
 
 #include <QObject>
 
@@ -51,7 +54,7 @@ private:
     /** Function 003: Synchronize project path. */
     void synchronizeCurrent_path(QString current_path);
     /** Function 004: Update project information according to project name and project path. */
-    void updateProject_information(QString project_name, QString project_path);
+    int updateProject_information(QString project_name, QString project_path);
     /** Function 005: Update project information according to project file full path. */
     void updateProject_information(QString project_file_full_path);
 
@@ -112,6 +115,9 @@ private:
 
     /** Function 301: Update all settings opertions. */
     void UpdateSettings();
+
+    /** Function 600: Print data read from project file. */
+    void printData_read_from_project_file(QString domain, QString content);
 #ifdef MAINCONTROLLER_DEBUG
     /** Function 900: Print project information. -Debug function*/
     void printProject_information();

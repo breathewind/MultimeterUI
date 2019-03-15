@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 19/02/2019
+ * Last modify date: 15/03/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -62,26 +62,59 @@ void MainController::synchronizeCurrent_path(QString current_path)
  *             Name: updateProject_information
  *      Function ID: 004
  *      Create date: 18/02/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 15/03/2019
  *      Description: Update project information according to project name and
  *                   project path.
  ******************************************************************************/
-void MainController::updateProject_information(QString project_name, QString project_path)
+int MainController::updateProject_information(QString project_name, QString project_path)
 {
+    QString previous_project_name = _project_name;
+    QString previous_project_path = _project_path;
+
     _project_name = project_name;
-    _project_file = _project_name + MULTIMETERUI_DAFAULT_PROJECT_SUFFIX;
     _project_path = project_path + MULTIMETERUI_DIR_SYMBOL + _project_name;
+    /** Create directory. */
+    QDir dir(_project_path);
+    if(dir.exists()){
+        int ret = QMessageBox::warning(_main_window, tr("Directory already exists."),
+                                       QString("%1 already exists, do you want to rewrite it?\n"
+                                               "If you are not sure, please contact System Administrator").arg(_project_path),
+                                       QMessageBox::Yes | QMessageBox::Cancel,
+                                       QMessageBox::Yes);
+
+        switch(ret){
+        case QMessageBox::Yes:
+            // Yes was clicked
+            dir.removeRecursively();
+            break;
+        case QMessageBox::Cancel:
+            // Cancel was clicked
+            _project_name = previous_project_name;
+            _project_path = previous_project_path;
+            return MAINCONTROLLER_DIR_CREATE_FAIL;
+        default:
+            // should never be reached
+            break;
+        }
+    }
+
+    _project_file = _project_name + MULTIMETERUI_DAFAULT_PROJECT_SUFFIX;
     _project_file_full_path = _project_path + MULTIMETERUI_DIR_SYMBOL +
                               _project_name + MULTIMETERUI_DAFAULT_PROJECT_SUFFIX;
     _project_output_path = _project_path + MULTIMETERUI_DIR_SYMBOL + MULTIMETERUI_DEFAUTL_OUTPUT_PAHT;
     synchronizeCurrent_path(project_path);
+
+    QDir().mkdir(_project_path);
+    QDir().mkdir(_project_output_path);
+
+    return MAINCONTROLLER_DIR_CREATE_SUCCEED;
 }
 
 /******************************************************************************
  *             Name: updateProject_information
  *      Function ID: 005
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 15/03/2019
  *      Description: Update project information according to project file full
  *                   path.
  ******************************************************************************/
@@ -91,6 +124,7 @@ void MainController::updateProject_information(QString project_file_full_path)
     _project_file = Global_Functions::extractFile_full_name(project_file_full_path);
     _project_path = Global_Functions::extractFile_path(project_file_full_path);
     _project_file_full_path = project_file_full_path;
+    _project_output_path = _project_path + MULTIMETERUI_DIR_SYMBOL + MULTIMETERUI_DEFAUTL_OUTPUT_PAHT;
     synchronizeCurrent_path(_project_path);
 }
 
@@ -326,21 +360,33 @@ void MainController::UpdateSettings()
 }
 
 /******************************************************************************
+ *             Name: printData_read_from_project_file
+ *      Function ID: 600
+ *      Create date: 21/02/2019
+ * Last modify date: 21/02/2019
+ *      Description: Print data read from project file.
+ ******************************************************************************/
+void MainController::printData_read_from_project_file(QString domain, QString content)
+{
+#ifdef MAINCONTROLLER_DEBUG
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << domain << " " << content;
+#endif
+}
+
+/******************************************************************************
  *             Name: slot_create_new_project
  *      Function ID: 700
  *      Create date: 16/02/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 15/03/2019
  *      Description: Slot for new project created.
  ******************************************************************************/
 void MainController::slot_create_new_project(QString project_name, QString project_path)
 {
-    updateProject_information(project_name, project_path);
-
-    handleNew_Project();
-
-    if(handleNew_Project()){
-        _main_window->setWindowTitle(QString("%1 - %2").arg(APP_NAME).arg(_project_name));
-        _main_window->changeDisplay_status(MAINWINDOW_PROJECT_ACTIVATE);
+    if(!updateProject_information(project_name, project_path)){
+        if(handleNew_Project()){
+            _main_window->setWindowTitle(QString("%1 - %2").arg(APP_NAME).arg(_project_name));
+            _main_window->changeDisplay_status(MAINWINDOW_PROJECT_ACTIVATE);
+        }
     }
 
 #ifdef MAINCONTROLLER_DEBUG
@@ -353,7 +399,7 @@ void MainController::slot_create_new_project(QString project_name, QString proje
  *             Name: slot_open_project
  *      Function ID: 701
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 15/03/2019
  *      Description: Slot for open a project.
  ******************************************************************************/
 void MainController::slot_open_project(QString project_file_full_path)
@@ -365,8 +411,6 @@ void MainController::slot_open_project(QString project_file_full_path)
             _main_window->setWindowTitle(QString("%1 - %2").arg(APP_NAME).arg(_project_name));
             _main_window->changeDisplay_status(MAINWINDOW_PROJECT_ACTIVATE);
         }
-
-        handleOpen_Project();
     }
 
 #ifdef MAINCONTROLLER_DEBUG
@@ -396,15 +440,17 @@ void MainController::slot_save_project()
  *             Name: slot_save_project_as
  *      Function ID: 703
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 15/03/2019
  *      Description: Slot for saving project as another project.
  ******************************************************************************/
 void MainController::slot_save_project_as(QString project_file_full_path)
 {
     if(project_file_full_path.length() > 0){
-        updateProject_information(project_file_full_path);
-
-        handleSave_Project_As();
+        if(!updateProject_information(Global_Functions::extractFile_name(project_file_full_path),
+                                      Global_Functions::extractFile_path(project_file_full_path))){
+            handleSave_Project_As();
+            _main_window->setWindowTitle(QString("%1 - %2").arg(APP_NAME).arg(_project_name));
+        }
     }
 #ifdef MAINCONTROLLER_DEBUG
     qDebug() << "+ MainController: Save Project as";
@@ -416,7 +462,7 @@ void MainController::slot_save_project_as(QString project_file_full_path)
  *             Name: slot_close_project
  *      Function ID: 704
  *      Create date: 18/02/2019
- * Last modify date: 19/02/2019
+ * Last modify date: 15/03/2019
  *      Description: Slot for current project closed.
  ******************************************************************************/
 void MainController::slot_close_project()
@@ -426,6 +472,9 @@ void MainController::slot_close_project()
     handleClose_Project();
 
     _main_window->resetAll_menu_actions();
+    _command_panel->hide();
+    _settings_dialog->hide();
+    _main_window->setWindowTitle(QString(APP_NAME));
 
 #ifdef MAINCONTROLLER_DEBUG
     clearProject_information();
