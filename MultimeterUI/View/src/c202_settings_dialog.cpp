@@ -188,5 +188,5 @@ void Settings_Dialog::on_pushButton_Apply_clicked()
  ******************************************************************************/
 void Settings_Dialog::on_pushButton_Rescan_clicked()
 {
-    emit signal_rescan();
+    rescanSerial_port();
 }

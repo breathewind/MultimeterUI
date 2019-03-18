@@ -54,7 +54,7 @@ private:
     /** Function 003: Synchronize project path. */
     void synchronizeCurrent_path(QString current_path);
     /** Function 004: Update project information according to project name and project path. */
-    int updateProject_information(QString project_name, QString project_path);
+    int updateProject_information(QString project_name, QString project_path, QString output_file);
     /** Function 005: Update project information according to project file full path. */
     void updateProject_information(QString project_file_full_path);
 

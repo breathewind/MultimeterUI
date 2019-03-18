@@ -64,9 +64,7 @@ private slots:
 
 
 signals:
-    /** Signal 001: Signal emitted when a rescan operation is acquired. */
-    void signal_rescan();
-    /** Signal 002: Signal emitted when accept button is clicked. */
+    /** Signal 001: Signal emitted when accept button is clicked. */
     void signal_accept_button_clicked();
 };
 

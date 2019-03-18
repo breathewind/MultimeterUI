@@ -11,7 +11,7 @@
  *             Name: handleNew_Project
  *      Function ID: 231
  *      Create date: 18/02/2019
- * Last modify date: 15/03/2019
+ * Last modify date: 18/03/2019
  *      Description: Function for handle operations related to New Project.
  ******************************************************************************/
 bool MainController::handleNew_Project()
@@ -54,6 +54,7 @@ bool MainController::handleNew_Project()
     file.close();
     /** Show command panel when a new project is created. */
     _main_window->setCommand_panel_action_checked(true);
+    _command_panel->setDefault(_project_output_path + MULTIMETERUI_DIR_SYMBOL + _output_file_name);
     _command_panel->showDialog();
     /** Hide settings dialog when a new project is created. */
     _main_window->setSettings_action_checked(false);
