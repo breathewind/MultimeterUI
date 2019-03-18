@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 15/03/2019
+ * Last modify date: 18/03/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -282,7 +282,7 @@ void MainController::initStop()
  *             Name: initSettings
  *      Function ID: 218
  *      Create date: 19/02/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 18/03/2019
  *      Description: Initilize functions related to Settings operations.
  ******************************************************************************/
 void MainController::initSettings()
@@ -294,7 +294,8 @@ void MainController::initSettings()
     connect(_settings_dialog, &Settings_Dialog::accepted, _main_window, &MainWindow::slot_close_settings_dialog);
     connect(_settings_dialog, &Settings_Dialog::rejected, _main_window, &MainWindow::slot_close_settings_dialog);
     /** Connect signals and slots related to clicl Apply button in Settings Dialog. */
-    connect(_settings_dialog, &Settings_Dialog::signal_modification_confirmed, this, &MainController::slot_update_data_from_settings);
+    connect(_settings_dialog, &Settings_Dialog::signal_accept_button_clicked, this, &MainController::slot_update_data_from_settings);
+    connect(_settings_dialog, &Settings_Dialog::accepted, this, &MainController::slot_update_data_from_settings);
 }
 
 /******************************************************************************

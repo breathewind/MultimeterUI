@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 18/03/2019
  *      Description: Settings dialog of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -171,12 +171,12 @@ QStringList Settings_Dialog::retrieveDMM_data()
  *             Name: on_pushButton_Apply_clicked
  *      Function ID: 700
  *      Create date: 20/02/2019
- * Last modify date: 22/02/2019
+ * Last modify date: 18/03/2019
  *      Description: Slot for Apply pushbutton clicked.
  ******************************************************************************/
 void Settings_Dialog::on_pushButton_Apply_clicked()
 {
-    emit accepted();
+    emit signal_accept_button_clicked();
 }
 
 /******************************************************************************
@@ -189,36 +189,4 @@ void Settings_Dialog::on_pushButton_Apply_clicked()
 void Settings_Dialog::on_pushButton_Rescan_clicked()
 {
     emit signal_rescan();
-}
-
-/******************************************************************************
- *             Name: accept
- *      Function ID: 790
- *      Create date: 20/02/2019
- * Last modify date: 20/02/2019
- *      Description: Rewrite slot accect().
- ******************************************************************************/
-void Settings_Dialog::accept()
-{
-#ifdef SETTINGS_DIALOG_DEBUG
-    qDebug() << "+ Settings_Dialog: " << __FUNCTION__;
-#endif
-    emit accepted();
-    hide();
-}
-
-/******************************************************************************
- *             Name: reject
- *      Function ID: 791
- *      Create date: 20/02/2019
- * Last modify date: 20/02/2019
- *      Description: Rewrite slot reject().
- ******************************************************************************/
-void Settings_Dialog::reject()
-{
-#ifdef SETTINGS_DIALOG_DEBUG
-    qDebug() << "+ Settings_Dialog: " << __FUNCTION__;
-#endif
-    emit rejected();
-    hide();
 }

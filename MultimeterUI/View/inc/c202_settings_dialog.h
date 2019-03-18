@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 18/03/2019
  *      Description: Settings dialog of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -62,16 +62,12 @@ private slots:
     /** Function 710: Slot for Rescan push button clicked. */
     void on_pushButton_Rescan_clicked();
 
-    /** Function 790: Rewrite slot accect(). */
-    void accept();
-    /** Function 791: Rewrite slot reject(). */
-    void reject();
 
 signals:
-    /** Signal 001: Signal emitted when the modification of Settings_Dialog is comfirmed. */
-    void signal_modification_confirmed(QList<QStringList> data_set);
-    /** Signal 002: Signal emitted when a rescan operation is acquired. */
+    /** Signal 001: Signal emitted when a rescan operation is acquired. */
     void signal_rescan();
+    /** Signal 002: Signal emitted when accept button is clicked. */
+    void signal_accept_button_clicked();
 };
 
 #endif // C202_SETTINGS_DIALOG_H

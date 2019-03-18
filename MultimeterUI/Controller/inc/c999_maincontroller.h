@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 15/03/2019
+ * Last modify date: 18/03/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -178,7 +178,7 @@ private slots:
     void slot_Quit();
 
     /** Function 750: Slot for updating data from settings dialog to main controller. */
-    void slot_update_data_from_settings(QList<QStringList> data_set);
+    void slot_update_data_from_settings();
 signals:
     /** Signal 001: Signal for synchronizing project path. */
     void signal_synchronizeCurrent_Path(QString project_path);
