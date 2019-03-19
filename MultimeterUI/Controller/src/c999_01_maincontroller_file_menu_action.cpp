@@ -39,28 +39,29 @@ bool MainController::handleNew_Project()
         return false;
     }
     QTextStream out_stream(&file);
-
+/************************* GENERAL SETTINGS *************************/
     out_stream << MAINCONTTROLLER_SETTINGS_DISPLAY_TEXT      << " 0" << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_COMMAND_PANEL_DISPLAY_TEXT << " 1" << MULTIMETERUI_DAFAULT_NEW_LINE;
 //    out_stream << MAINCONTTROLLER_OUTPUT_PANEL_DISPLAY_TEXT  << " 0" << MULTIMETERUI_DAFAULT_NEW_LINE;
-
+/************************* DMM *************************/
     out_stream << MAINCONTTROLLER_SERIAL_DMM_BAUDRATE_TEXT    << " " << __serial_definitions.getBaudrate(_dmm_baudrate)    << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SERIAL_DMM_DATABITS_TEXT    << " " << __serial_definitions.getDataBits(_dmm_databits)    << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SERIAL_DMM_STOPBITS_TEXT    << " " << __serial_definitions.getStopBits(_dmm_stopbits)    << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SERIAL_DMM_PARITY_TEXT      << " " << __serial_definitions.getParity(_dmm_parity)        << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SERIAL_DMM_FLOWCONTROL_TEXT << " " << __serial_definitions.getFlowcontrol(_dmm_flowcontrol) << MULTIMETERUI_DAFAULT_NEW_LINE;
-
+/************************* MEASUREMENT SETTINGS *************************/
     out_stream << MAINCONTTROLLER_MEASUREMENT_TARGET_TEXT <<  " " << COMMAND_PANEL_TARGET_CURRENT          << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_MEASUREMENT_TYPE_TEXT   <<  " " << COMMAND_PANEL_TYPE_SINGLE_DATA        << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SAMPLING_PERIOD_TEXT    <<  " " << COMMAND_PANEL_DEFAULT_SAMPLING_PERIOD << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SAVE_FLAG_TEXT          <<  " " << COMMAND_PANEL_SAVE_FILE_CHECKED       << MULTIMETERUI_DAFAULT_NEW_LINE;
-    out_stream << MAINCONTTROLLER_SAVE_PATH_TEXT     <<  " " << _project_output_path + MULTIMETERUI_DIR_SYMBOL + _output_file_name << MULTIMETERUI_DAFAULT_NEW_LINE;
+    out_stream << MAINCONTTROLLER_SAVE_PATH_TEXT          <<  " " << _project_output_path + MULTIMETERUI_DIR_SYMBOL + _output_file_name << MULTIMETERUI_DAFAULT_NEW_LINE;
 
     file.flush();
     file.close();
     /** Show command panel when a new project is created. */
-    _main_window->setCommand_panel_action_checked(true);
     _command_panel->setDefault(_project_output_path + MULTIMETERUI_DIR_SYMBOL + _output_file_name);
+
+    _main_window->setCommand_panel_action_checked(true);
     _command_panel->showDialog();
     /** Hide settings dialog when a new project is created. */
     _main_window->setSettings_action_checked(false);
@@ -198,20 +199,21 @@ void MainController::handleSave_Project()
     QStringList measurement_settings = _command_panel->getMeasurementSettings();
 
     QTextStream out_stream(&file);
-    out_stream << MAINCONTTROLLER_SETTINGS_DISPLAY_TEXT << " " << _main_window->getSettings_action_checked() << MULTIMETERUI_DAFAULT_NEW_LINE;
+/************************* GENERAL SETTINGS *************************/
+    out_stream << MAINCONTTROLLER_SETTINGS_DISPLAY_TEXT      << " " << _main_window->getSettings_action_checked()      << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_COMMAND_PANEL_DISPLAY_TEXT << " " << _main_window->getCommand_panel_action_checked() << MULTIMETERUI_DAFAULT_NEW_LINE;
-
-    out_stream << MAINCONTTROLLER_SERIAL_DMM_BAUDRATE_TEXT    << " " << __serial_definitions.getBaudrate(_dmm_baudrate)    << MULTIMETERUI_DAFAULT_NEW_LINE;
-    out_stream << MAINCONTTROLLER_SERIAL_DMM_DATABITS_TEXT    << " " << __serial_definitions.getDataBits(_dmm_databits)    << MULTIMETERUI_DAFAULT_NEW_LINE;
-    out_stream << MAINCONTTROLLER_SERIAL_DMM_STOPBITS_TEXT    << " " << __serial_definitions.getStopBits(_dmm_stopbits)    << MULTIMETERUI_DAFAULT_NEW_LINE;
-    out_stream << MAINCONTTROLLER_SERIAL_DMM_PARITY_TEXT      << " " << __serial_definitions.getParity(_dmm_parity)        << MULTIMETERUI_DAFAULT_NEW_LINE;
+/************************* DMM *************************/
+    out_stream << MAINCONTTROLLER_SERIAL_DMM_BAUDRATE_TEXT    << " " << __serial_definitions.getBaudrate(_dmm_baudrate)       << MULTIMETERUI_DAFAULT_NEW_LINE;
+    out_stream << MAINCONTTROLLER_SERIAL_DMM_DATABITS_TEXT    << " " << __serial_definitions.getDataBits(_dmm_databits)       << MULTIMETERUI_DAFAULT_NEW_LINE;
+    out_stream << MAINCONTTROLLER_SERIAL_DMM_STOPBITS_TEXT    << " " << __serial_definitions.getStopBits(_dmm_stopbits)       << MULTIMETERUI_DAFAULT_NEW_LINE;
+    out_stream << MAINCONTTROLLER_SERIAL_DMM_PARITY_TEXT      << " " << __serial_definitions.getParity(_dmm_parity)           << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SERIAL_DMM_FLOWCONTROL_TEXT << " " << __serial_definitions.getFlowcontrol(_dmm_flowcontrol) << MULTIMETERUI_DAFAULT_NEW_LINE;
-
+/************************* MEASUREMENT SETTINGS *************************/
     out_stream << MAINCONTTROLLER_MEASUREMENT_TARGET_TEXT <<  " " << measurement_settings.at(COMMAND_PANEL_TARGET_INDEX)    << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_MEASUREMENT_TYPE_TEXT   <<  " " << measurement_settings.at(COMMAND_PANEL_TYPE_INDEX)      << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SAMPLING_PERIOD_TEXT    <<  " " << measurement_settings.at(COMMAND_PANEL_PERIOD_INDEX)    << MULTIMETERUI_DAFAULT_NEW_LINE;
     out_stream << MAINCONTTROLLER_SAVE_FLAG_TEXT          <<  " " << measurement_settings.at(COMMAND_PANEL_SAVE_FLAG_INDEX) << MULTIMETERUI_DAFAULT_NEW_LINE;
-    out_stream << MAINCONTTROLLER_SAVE_PATH_TEXT     <<  " " << measurement_settings.at(COMMAND_PANEL_SAVE_PATH_INDEX) << MULTIMETERUI_DAFAULT_NEW_LINE;
+    out_stream << MAINCONTTROLLER_SAVE_PATH_TEXT          <<  " " << measurement_settings.at(COMMAND_PANEL_SAVE_PATH_INDEX) << MULTIMETERUI_DAFAULT_NEW_LINE;
 
     file.flush();
     file.close();
