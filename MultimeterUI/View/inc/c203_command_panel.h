@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 18/03/2019
+ * Last modify date: 19/03/2019
  *      Description: Command Panel dialog of MultimeterUI application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -27,6 +27,12 @@
 #define COMMAND_PANEL_SAVE_FILE_UNCHECKED 0
 #define COMMAND_PANEL_SAVE_FILE_CHECKED   1
 
+#define COMMAND_PANEL_TARGET_INDEX    0
+#define COMMAND_PANEL_TYPE_INDEX      1
+#define COMMAND_PANEL_PERIOD_INDEX    2
+#define COMMAND_PANEL_SAVE_FLAG_INDEX 3
+#define COMMAND_PANEL_SAVE_PATH_INDEX 4
+
 #include <QDialog>
 
 namespace Ui {
@@ -48,9 +54,29 @@ public:
     /** Function 301: Set all options in command window as default value. */
     void setDefault(QString output_file);
     /** Function 302: Update all options in command window. */
-    void updateInformation(int target, int type, double sampling_period, int save_file_checked, QString output_file);
+    void updateInformation(int target, int type, double sampling_period, int save_flag, QString save_path);
+
+    /** Function 800: Get measurement settings. */
+    QStringList getMeasurementSettings();
+    /** Function 801: Set measurement target. */
+    void setMeasurementTarget(int target);
+    /** Function 802: Set measurement type. */
+    void setMeasurementType(int type);
+    /** Function 803: Set sampling period. */
+    void setSamplingPeriod(double period);
+    /** Function 804: Set save flag. */
+    void setSaveFlag(int flag);
+    /** Function 805: Set save path. */
+    void setSavePath(QString save_path);
 
 private:
+    /** Function 002: Set display logic for measurement target. */
+    void setLogic_target(int target);
+    /** Function 003: Set display logic for measurement type. */
+    void setLogic_type(int type);
+    /** Function 004: Set display logic for save file. */
+    void setLogic_save_file(int save_flag);
+
     Ui::Command_Panel *ui;
 };
 

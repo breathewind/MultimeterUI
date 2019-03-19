@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 18/03/2019
+ * Last modify date: 19/03/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -116,17 +116,17 @@ int MainController::updateProject_information(QString project_name, QString proj
  *             Name: updateProject_information
  *      Function ID: 005
  *      Create date: 18/02/2019
- * Last modify date: 15/03/2019
+ * Last modify date: 19/03/2019
  *      Description: Update project information according to project file full
  *                   path.
  ******************************************************************************/
 void MainController::updateProject_information(QString project_file_full_path)
 {
+    clearProject_information();
     _project_name = Global_Functions::extractFile_name(project_file_full_path);
     _project_file = Global_Functions::extractFile_full_name(project_file_full_path);
     _project_path = Global_Functions::extractFile_path(project_file_full_path);
     _project_file_full_path = project_file_full_path;
-    _project_output_path = _project_path + MULTIMETERUI_DIR_SYMBOL + MULTIMETERUI_DEFAUTL_OUTPUT_PAHT;
     synchronizeCurrent_path(_project_path);
 }
 
