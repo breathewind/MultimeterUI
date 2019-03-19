@@ -557,13 +557,13 @@ void MainController::slot_Quit()
  ******************************************************************************/
 void MainController::printProject_information()
 {
-    qDebug() << "= Project name: " << _project_name;
-    qDebug() << "= Project file: " << _project_file;
-    qDebug() << "= Project path: " << _project_path;
-    qDebug() << "= Project file full path: " <<  _project_file_full_path;
-    qDebug() << "= Current path: " <<  _current_path;
-    qDebug() << "= Output file: " <<  _project_output_path + MULTIMETERUI_DIR_SYMBOL + _output_file_name;
-    qDebug() << "------------------------------------------------------";
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << "Project name: " << _project_name;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << "Project file: " << _project_file;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << "Project path: " << _project_path;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << "Project file full path: " <<  _project_file_full_path;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << "Current path: " <<  _current_path;
+    qDebug() << MAINCONTORLLER_DEBUG_PREFIX << "Output file: " <<  _project_output_path + MULTIMETERUI_DIR_SYMBOL + _output_file_name;
+    qDebug() << DEBUG_SPLIT_LINE;
 }
 
 /******************************************************************************
