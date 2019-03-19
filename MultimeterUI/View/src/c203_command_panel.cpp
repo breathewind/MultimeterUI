@@ -74,8 +74,26 @@ void Command_Panel::setLogic_target(int target)
 }
 
 /******************************************************************************
- *             Name: setLogic_target
+ *             Name: setChecked_type
  *      Function ID: 003
+ *      Create date: 19/03/2019
+ * Last modify date: 19/03/2019
+ *      Description: Set check boxes for discharge measurement type.
+ ******************************************************************************/
+void Command_Panel::setChecked_type(int type)
+{
+    if(type == COMMAND_PANEL_TYPE_SINGLE_DATA){
+        ui->radioButton_single_data->setChecked(true);
+        ui->radioButton_periodic_sampling->setChecked(false);
+    } else {
+        ui->radioButton_single_data->setChecked(false);
+        ui->radioButton_periodic_sampling->setChecked(true);
+    }
+}
+
+/******************************************************************************
+ *             Name: setLogic_target
+ *      Function ID: 004
  *      Create date: 19/03/2019
  * Last modify date: 19/03/2019
  *      Description: Set display logic for discharge measurement type.
@@ -83,19 +101,15 @@ void Command_Panel::setLogic_target(int target)
 void Command_Panel::setLogic_type(int type)
 {
     if(type == COMMAND_PANEL_TYPE_SINGLE_DATA){
-        ui->radioButton_single_data->setChecked(true);
-        ui->radioButton_periodic_sampling->setChecked(false);
         ui->doubleSpinBox_sampling_period->setEnabled(false);
     } else {
-        ui->radioButton_single_data->setChecked(false);
-        ui->radioButton_periodic_sampling->setChecked(true);
         ui->doubleSpinBox_sampling_period->setEnabled(true);
     }
 }
 
 /******************************************************************************
  *             Name: setLogic_target
- *      Function ID: 004
+ *      Function ID: 005
  *      Create date: 19/03/2019
  * Last modify date: 19/03/2019
  *      Description: Set display logic for save file..
@@ -135,18 +149,15 @@ void Command_Panel::setDefault(QString output_file)
     /** Initialize measurement target */
     setLogic_target(COMMAND_PANEL_TARGET_CURRENT);
 
-
     /** Initialize measurement type */
-    ui->doubleSpinBox_sampling_period->setMinimum(COMMAND_PANEL_MINIMUM_SAMPLING_PERIOD);
-    ui->doubleSpinBox_sampling_period->setValue(COMMAND_PANEL_DEFAULT_SAMPLING_PERIOD);
+    setSamplingPeriod(COMMAND_PANEL_DEFAULT_SAMPLING_PERIOD);
 
+    setChecked_type(COMMAND_PANEL_TYPE_SINGLE_DATA);
     setLogic_type(COMMAND_PANEL_TYPE_SINGLE_DATA);
 
     /** Initialize save file */
-    ui->lineEdit_file_path->setText(output_file);
-
-    ui->checkBox_save_file->setChecked(true);
-    setLogic_save_file(COMMAND_PANEL_SAVE_FILE_CHECKED);
+    setSavePath(output_file);
+    setSaveFlag(COMMAND_PANEL_SAVE_FILE_CHECKED);
 }
 
 /******************************************************************************
@@ -164,16 +175,14 @@ void Command_Panel::updateInformation(int target,
     setLogic_target(target);
 
     /** Update measurement type information */
-    ui->doubleSpinBox_sampling_period->setMinimum(COMMAND_PANEL_MINIMUM_SAMPLING_PERIOD);
-    ui->doubleSpinBox_sampling_period->setValue(sampling_period);
+    setSamplingPeriod(sampling_period);
 
+    setChecked_type(type);
     setLogic_type(type);
 
     /** Update save file information */
-    ui->lineEdit_file_path->setText(save_path);
-
-    ui->checkBox_save_file->setChecked(static_cast<bool>(save_flag));
-    setLogic_save_file(save_flag);
+    setSavePath(save_path);
+    setSaveFlag(save_flag);
 }
 
 /******************************************************************************

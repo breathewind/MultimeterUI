@@ -552,7 +552,7 @@ void MainController::slot_Quit()
  *             Name: printProject_Information -Debug function
  *      Function ID: 900
  *      Create date: 18/02/2019
- * Last modify date: 18/03/2019
+ * Last modify date: 19/03/2019
  *      Description: Print project information.
  ******************************************************************************/
 void MainController::printProject_information()
@@ -562,7 +562,7 @@ void MainController::printProject_information()
     qDebug() << "= Project path: " << _project_path;
     qDebug() << "= Project file full path: " <<  _project_file_full_path;
     qDebug() << "= Current path: " <<  _current_path;
-    qDebug() << "= Output file: " <<  _project_output_path + MULTIMETERUI_DIR_SYMBOL + _project_output_path;
+    qDebug() << "= Output file: " <<  _project_output_path + MULTIMETERUI_DIR_SYMBOL + _output_file_name;
     qDebug() << "------------------------------------------------------";
 }
 

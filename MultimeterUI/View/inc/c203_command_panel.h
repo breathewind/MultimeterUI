@@ -72,9 +72,11 @@ public:
 private:
     /** Function 002: Set display logic for measurement target. */
     void setLogic_target(int target);
-    /** Function 003: Set display logic for measurement type. */
+    /** Function 003: Set check boxes for measurement type. */
+    void setChecked_type(int type);
+    /** Function 004: Set display logic for measurement type. */
     void setLogic_type(int type);
-    /** Function 004: Set display logic for save file. */
+    /** Function 005: Set display logic for save file. */
     void setLogic_save_file(int save_flag);
 
     Ui::Command_Panel *ui;

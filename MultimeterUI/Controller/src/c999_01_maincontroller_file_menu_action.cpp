@@ -156,7 +156,7 @@ bool MainController::handleOpen_Project()
         } else if (fields.at(0) == MAINCONTTROLLER_SAVE_PATH_TEXT) {
             /************************* SAVE_PATH *************************/
             _command_panel->setSavePath(fields.at(1));
-            _output_file_name = Global_Functions::extractFile_name(fields.at(1));
+            _output_file_name = Global_Functions::extractFile_full_name(fields.at(1));
             _project_output_path = Global_Functions::extractFile_path(fields.at(1));
             printData_read_from_project_file(MAINCONTTROLLER_SAVE_PATH_TEXT, fields.at(1));
             printData_read_from_project_file("_output_file_name", _output_file_name);
