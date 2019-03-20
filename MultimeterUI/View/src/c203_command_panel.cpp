@@ -216,11 +216,7 @@ void Command_Panel::on_pushButton_browse_clicked()
  ******************************************************************************/
 void Command_Panel::on_radioButton_single_data_toggled(bool checked)
 {
-    if(checked){
-        setLogic_type(COMMAND_PANEL_TYPE_SINGLE_DATA);
-    } else {
-        setLogic_type(COMMAND_PANEL_TYPE_PERIODIC_SAMPLING);
-    }
+    ui->doubleSpinBox_sampling_period->setEnabled(!checked);
 }
 
 /******************************************************************************
