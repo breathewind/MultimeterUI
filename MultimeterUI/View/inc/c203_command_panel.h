@@ -87,6 +87,10 @@ private:
 private slots:
     /** Function 700: Slot for Browse button clicked. */
     void on_pushButton_browse_clicked();
+    /** Function 701: Slot for single data radio button toggled. */
+    void on_radioButton_single_data_toggled(bool checked);
+    /** Function 702: Slot for save file check box toggled. */
+    void on_checkBox_save_file_toggled(bool checked);
 };
 
 #endif // C203_COMMAND_PANEL_H

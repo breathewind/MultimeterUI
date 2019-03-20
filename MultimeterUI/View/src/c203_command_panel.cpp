@@ -197,7 +197,7 @@ void Command_Panel::on_pushButton_browse_clicked()
     QString current_file = ui->lineEdit_file_path->text();
     QString new_output_file = QFileDialog::getSaveFileName(this, tr("Save result to ..."), Global_Functions::extractFile_path(current_file));
     if(new_output_file.length() > 0){
-        qDebug() << Global_Functions::extractFile_type(new_output_file);
+//        qDebug() << Global_Functions::extractFile_type(new_output_file);
         if(Global_Functions::extractFile_type(new_output_file) != MULTIMETERUI_DEFAULT_OUTPUT_FILE_SUFFIX){
             new_output_file.append(".");
             new_output_file.append(MULTIMETERUI_DEFAULT_OUTPUT_FILE_SUFFIX);
@@ -205,6 +205,34 @@ void Command_Panel::on_pushButton_browse_clicked()
         current_file = new_output_file;
     }
     ui->lineEdit_file_path->setText(current_file);
+}
+
+/******************************************************************************
+ *             Name: on_radioButton_single_data_toggled
+ *      Function ID: 701
+ *      Create date: 20/03/2019
+ * Last modify date: 20/03/2019
+ *      Description: Slot for single data radio button toggled.
+ ******************************************************************************/
+void Command_Panel::on_radioButton_single_data_toggled(bool checked)
+{
+    if(checked){
+        setLogic_type(COMMAND_PANEL_TYPE_SINGLE_DATA);
+    } else {
+        setLogic_type(COMMAND_PANEL_TYPE_PERIODIC_SAMPLING);
+    }
+}
+
+/******************************************************************************
+ *             Name: on_checkBox_save_file_toggled
+ *      Function ID: 702
+ *      Create date: 20/03/2019
+ * Last modify date: 20/03/2019
+ *      Description: Slot for save file check box toggled.
+ ******************************************************************************/
+void Command_Panel::on_checkBox_save_file_toggled(bool checked)
+{
+    setLogic_save_file(checked);
 }
 
 /******************************************************************************
@@ -261,11 +289,12 @@ void Command_Panel::setMeasurementTarget(int target)
  *             Name: setMeasurementType
  *      Function ID: 802
  *      Create date: 19/03/2019
- * Last modify date: 19/03/2019
+ * Last modify date: 20/03/2019
  *      Description: Set measurement type.
  ******************************************************************************/
 void Command_Panel::setMeasurementType(int type)
 {
+    setChecked_type(type);
     setLogic_type(type);
 }
 
