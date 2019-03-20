@@ -158,7 +158,6 @@ bool MainController::handleOpen_Project()
             /************************* SAVE_PATH *************************/
             QString path = Global_Functions::extractSecondString(line);
             _command_panel->setSavePath(path);
-            /** for there may be space in save path, need fix */
             _output_file_name = Global_Functions::extractFile_full_name(path);
             _project_output_path = Global_Functions::extractFile_path(path);
             printData_read_from_project_file(MAINCONTTROLLER_SAVE_PATH_TEXT, path);

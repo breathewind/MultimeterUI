@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 16/02/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 20/03/2019
  *      Description: Global parameters.
  ******************************************************************************/
 #ifndef H000_GLOBAL_PARAMETERS_H
@@ -17,8 +17,9 @@
 //#define MULTIMETERUI_DAFAULT_PROJECT_FILE_TYPE tr("Project File (*.proj);;All Files (*.*)")
 #define MULTIMETERUI_DAFAULT_NEW_LINE "\n"
 
-#define MULTIMETERUI_DEFAUTL_OUTPUT_PAHT "output"
-#define MULTIMETERUI_DEFAUTL_OUTPUT_FILE_NAME "result.txt"
+#define MULTIMETERUI_DEFAULT_OUTPUT_PAHT "output"
+#define MULTIMETERUI_DEFAULT_OUTPUT_FILE_NAME "result.txt"
+#define MULTIMETERUI_DEFAULT_OUTPUT_FILE_SUFFIX "txt"
 
 #define MULTIMETERUI_DEBUG
 

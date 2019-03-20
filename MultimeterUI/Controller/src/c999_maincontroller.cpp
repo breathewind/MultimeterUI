@@ -101,7 +101,7 @@ int MainController::updateProject_information(QString project_name, QString proj
     _project_file = _project_name + MULTIMETERUI_DAFAULT_PROJECT_SUFFIX;
     _project_file_full_path = _project_path + MULTIMETERUI_DIR_SYMBOL +
                               _project_name + MULTIMETERUI_DAFAULT_PROJECT_SUFFIX;
-    _project_output_path = _project_path + MULTIMETERUI_DIR_SYMBOL + MULTIMETERUI_DEFAUTL_OUTPUT_PAHT;
+    _project_output_path = _project_path + MULTIMETERUI_DIR_SYMBOL + MULTIMETERUI_DEFAULT_OUTPUT_PAHT;
     synchronizeCurrent_path(project_path);
 
     _output_file_name = output_file;
@@ -385,7 +385,7 @@ void MainController::printData_read_from_project_file(QString domain, QString co
  ******************************************************************************/
 void MainController::slot_create_new_project(QString project_name, QString project_path)
 {
-    if(!updateProject_information(project_name, project_path, MULTIMETERUI_DEFAUTL_OUTPUT_FILE_NAME)){
+    if(!updateProject_information(project_name, project_path, MULTIMETERUI_DEFAULT_OUTPUT_FILE_NAME)){
         if(handleNew_Project()){
             _main_window->setWindowTitle(QString("%1 - %2").arg(APP_NAME).arg(_project_name));
             _main_window->changeDisplay_status(MAINWINDOW_PROJECT_ACTIVATE);
@@ -451,7 +451,7 @@ void MainController::slot_save_project_as(QString project_file_full_path)
     if(project_file_full_path.length() > 0){
         if(!updateProject_information(Global_Functions::extractFile_name(project_file_full_path),
                                       Global_Functions::extractFile_path(project_file_full_path),
-                                      MULTIMETERUI_DEFAUTL_OUTPUT_FILE_NAME)){
+                                      MULTIMETERUI_DEFAULT_OUTPUT_FILE_NAME)){
             handleSave_Project_As();
             _main_window->setWindowTitle(QString("%1 - %2").arg(APP_NAME).arg(_project_name));
         }

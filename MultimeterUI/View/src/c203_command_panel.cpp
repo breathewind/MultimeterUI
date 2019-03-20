@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 19/03/2019
+ * Last modify date: 20/03/2019
  *      Description: Command Panel dialog of MultimeterUI application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -183,6 +183,28 @@ void Command_Panel::updateInformation(int target,
     /** Update save file information */
     setSavePath(save_path);
     setSaveFlag(save_flag);
+}
+
+/******************************************************************************
+ *             Name: on_pushButton_browse_clicked
+ *      Function ID: 700
+ *      Create date: 20/03/2019
+ * Last modify date: 20/03/2019
+ *      Description: Slot for Browse button clicked.
+ ******************************************************************************/
+void Command_Panel::on_pushButton_browse_clicked()
+{
+    QString current_file = ui->lineEdit_file_path->text();
+    QString new_output_file = QFileDialog::getSaveFileName(this, tr("Save result to ..."), Global_Functions::extractFile_path(current_file));
+    if(new_output_file.length() > 0){
+        qDebug() << Global_Functions::extractFile_type(new_output_file);
+        if(Global_Functions::extractFile_type(new_output_file) != MULTIMETERUI_DEFAULT_OUTPUT_FILE_SUFFIX){
+            new_output_file.append(".");
+            new_output_file.append(MULTIMETERUI_DEFAULT_OUTPUT_FILE_SUFFIX);
+        }
+        current_file = new_output_file;
+    }
+    ui->lineEdit_file_path->setText(current_file);
 }
 
 /******************************************************************************
