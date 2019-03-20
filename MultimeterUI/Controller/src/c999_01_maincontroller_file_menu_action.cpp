@@ -182,7 +182,7 @@ bool MainController::handleOpen_Project()
  *             Name: handleSave_Project
  *      Function ID: 233
  *      Create date: 18/02/2019
- * Last modify date: 19/03/2019
+ * Last modify date: 20/03/2019
  *      Description: Function for handle operations related to Save Project.
  ******************************************************************************/
 void MainController::handleSave_Project()
@@ -198,6 +198,8 @@ void MainController::handleSave_Project()
     }
 
     QStringList measurement_settings = _command_panel->getMeasurementSettings();
+    _output_file_name = Global_Functions::extractFile_full_name(measurement_settings.at(COMMAND_PANEL_SAVE_PATH_INDEX));
+    _project_output_path = Global_Functions::extractFile_path(measurement_settings.at(COMMAND_PANEL_SAVE_PATH_INDEX));
 
     QTextStream out_stream(&file);
 /************************* GENERAL SETTINGS *************************/
