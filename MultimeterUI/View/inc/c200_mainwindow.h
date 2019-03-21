@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 21/03/2019
  *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -108,6 +108,11 @@ private:
     void handleSettings_triggered();
     /** Function 208: Function for Command Panel menu action triggered. */
     void handleCommand_Panel_triggered();
+
+    /** Function 300: Clear content of all labels. */
+    void clearAll_labels();
+    /** Function 301: Set all labels as default value. */
+    void setLabels_by_default();
 
     Ui::MainWindow *ui;
 

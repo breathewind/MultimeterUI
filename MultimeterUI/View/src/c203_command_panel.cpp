@@ -228,7 +228,7 @@ void Command_Panel::on_radioButton_single_data_toggled(bool checked)
  ******************************************************************************/
 void Command_Panel::on_checkBox_save_file_toggled(bool checked)
 {
-    setLogic_save_file(checked);
+    ui->groupBox_save_file->setEnabled(checked);
 }
 
 /******************************************************************************

@@ -40,7 +40,8 @@ SOURCES += \
     View/src/c203_command_panel.cpp \
     View/src/c200_03_mainwindow_function_menu_action.cpp \
     Controller/src/c999_11_maincontroller_functional_slots.cpp \
-    Controller/src/c999_03_maincontroller_function_menu_action.cpp
+    Controller/src/c999_03_maincontroller_function_menu_action.cpp \
+    View/src/c200_04_mainwindow_user_functions.cpp
 
 HEADERS += \
         View/inc/c200_mainwindow.h\

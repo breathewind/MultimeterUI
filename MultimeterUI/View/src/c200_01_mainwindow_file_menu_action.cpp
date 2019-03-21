@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 18/02/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 21/03/2019
  *      Description: Main window of Multimeter application.
  *                   - Functions related to file menu actions.
  ******************************************************************************/
@@ -72,11 +72,12 @@ QString MainWindow::handleSave_Project_As_triggered()
  *             Name: handleClose_Project_triggered
  *      Function ID: 204
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 21/03/2019
  *      Description: Function for Close Project menu action triggered.
  ******************************************************************************/
 void MainWindow::handleClose_Project_triggered()
 {
+    clearAll_labels();
 #ifdef MAINWINDOW_DEBUG
     qDebug() << "+ MainWindow: handleClose_Project_triggered";
 #endif

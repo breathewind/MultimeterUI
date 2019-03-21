@@ -25,6 +25,162 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_battery_voltage"/>
    </widget>
+   <widget class="QLabel" name="label_text_target">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>340</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Measurement Target:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_type">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>370</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Measurement Type:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_save_path">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>400</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Measurement save path:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_value_target">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>340</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Resistance</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_value_type">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>370</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Periodic sampling</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_sampling_period">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>370</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sampling period:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_value_sampling_period">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>370</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>100.72 s</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_value_save_path">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>400</y>
+      <width>471</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>100.72 s</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_time">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>280</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Measurement time:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_value">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>310</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Measurement value:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_value_time">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>280</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>test</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_value_value">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>310</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>test</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
