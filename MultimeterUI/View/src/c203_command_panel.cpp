@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 20/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Command Panel dialog of MultimeterUI application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -330,4 +330,124 @@ void Command_Panel::setSaveFlag(int flag)
 void Command_Panel::setSavePath(QString save_path)
 {
     ui->lineEdit_file_path->setText(save_path);
+}
+
+/******************************************************************************
+ *             Name: getMeasurementTarget
+ *      Function ID: 806
+ *      Create date: 29/03/2019
+ * Last modify date: 01/04/2019
+ *      Description: Get measurement target.
+ ******************************************************************************/
+int Command_Panel::getMeasurementTarget()
+{
+    int ret;
+    if(ui->radioButton_current->isChecked()){
+        ret = COMMAND_PANEL_TARGET_CURRENT;
+    } else if(ui->radioButton_voltage->isChecked()) {
+        ret = COMMAND_PANEL_TARGET_VOLTAGE;
+    } else if(ui->radioButton_resistance->isChecked()){
+        ret = COMMAND_PANEL_TARGET_RESISTANCE;
+    } else {
+        ret = COMMAND_PANEL_ERROR;
+    }
+    return ret;
+}
+
+/******************************************************************************
+ *             Name: getMeasurementType
+ *      Function ID: 807
+ *      Create date: 29/03/2019
+ * Last modify date: 01/04/2019
+ *      Description: Get measurement type.
+ ******************************************************************************/
+int Command_Panel::getMeasurementType()
+{
+    int ret;
+    if(ui->radioButton_single_data->isChecked()) {
+        ret = COMMAND_PANEL_TYPE_SINGLE_DATA;
+    } else if(ui->radioButton_periodic_sampling->isChecked()) {
+        ret = COMMAND_PANEL_TYPE_PERIODIC_SAMPLING;
+    } else {
+        ret = COMMAND_PANEL_ERROR;
+    }
+    return ret;
+}
+
+/******************************************************************************
+ *             Name: getSamplingPeriod
+ *      Function ID: 808
+ *      Create date: 29/03/2019
+ * Last modify date: 01/04/2019
+ *      Description: Get sampling period.
+ ******************************************************************************/
+double Command_Panel::getSamplingPeriod()
+{
+    return ui->doubleSpinBox_sampling_period->value();
+}
+
+/******************************************************************************
+ *             Name: getSaveFlag
+ *      Function ID: 809
+ *      Create date: 29/03/2019
+ * Last modify date: 01/04/2019
+ *      Description: Get save flag.
+ ******************************************************************************/
+bool Command_Panel::getSaveFlag()
+{
+    return ui->checkBox_save_file->isChecked();
+}
+
+/******************************************************************************
+ *             Name: getSavePath
+ *      Function ID: 810
+ *      Create date: 29/03/2019
+ * Last modify date: 01/04/2019
+ *      Description: Get save path.
+ ******************************************************************************/
+QString Command_Panel::getSavePath()
+{
+    return ui->lineEdit_file_path->text();
+}
+
+/******************************************************************************
+ *             Name: getMeasurement_Target_Text
+ *      Function ID: 811
+ *      Create date: 01/04/2019
+ * Last modify date: 01/04/2019
+ *      Description: Get the text of measurement target.
+ ******************************************************************************/
+QString Command_Panel::getMeasurement_Target_Text()
+{
+    QString ret;
+    if(ui->radioButton_current->isChecked()){
+        ret = ui->radioButton_current->text();
+    } else if(ui->radioButton_voltage->isChecked()) {
+        ret = ui->radioButton_voltage->text();
+    } else if(ui->radioButton_resistance->isChecked()){
+        ret = ui->radioButton_resistance->text();
+    } else {
+        ret = COMMAND_PANEL_ERROR_TEXT;
+    }
+    return ret;
+}
+
+/******************************************************************************
+ *             Name: getMeasurement_Type_Text
+ *      Function ID: 812
+ *      Create date: 01/04/2019
+ * Last modify date: 01/04/2019
+ *      Description: Get the text of measurement type.
+ ******************************************************************************/
+QString Command_Panel::getMeasurement_Type_Text()
+{
+    QString ret;
+    if(ui->radioButton_single_data->isChecked()) {
+        ret = ui->radioButton_single_data->text();
+    } else if(ui->radioButton_periodic_sampling->isChecked()) {
+        ret = ui->radioButton_periodic_sampling->text();
+    } else {
+        ret = COMMAND_PANEL_ERROR_TEXT;
+    }
+    return ret;
 }

@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 21/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions

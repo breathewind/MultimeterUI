@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 20/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Command Panel dialog of MultimeterUI application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -14,12 +14,22 @@
 #ifndef C203_COMMAND_PANEL_H
 #define C203_COMMAND_PANEL_H
 
+#define COMMAND_PANEL_ERROR      -1
+#define COMMAND_PANEL_ERROR_TEXT "ERROR"
+
 #define COMMAND_PANEL_TARGET_CURRENT    0
 #define COMMAND_PANEL_TARGET_VOLTAGE    1
 #define COMMAND_PANEL_TARGET_RESISTANCE 2
 
+#define COMMAND_PANEL_TARGET_CURRENT_TEXT    "Current"
+#define COMMAND_PANEL_TARGET_VOLTAGE_TEXT    "Voltage"
+#define COMMAND_PANEL_TARGET_RESISTANCE_TEXT "Resistance"
+
 #define COMMAND_PANEL_TYPE_SINGLE_DATA       0
 #define COMMAND_PANEL_TYPE_PERIODIC_SAMPLING 1
+
+#define COMMAND_PANEL_TYPE_SINGLE_DATA_TEXT       "Single data"
+#define COMMAND_PANEL_TYPE_PERIODIC_SAMPLING_TEXT "Periodic sampling"
 
 #define COMMAND_PANEL_SAVE_FILE_UNCHECKED 0
 #define COMMAND_PANEL_SAVE_FILE_CHECKED   1
@@ -71,6 +81,22 @@ public:
     void setSaveFlag(int flag);
     /** Function 805: Set save path. */
     void setSavePath(QString save_path);
+
+    /** Function 806: Get measurement target. */
+    int getMeasurementTarget();
+    /** Function 807: Get measurement type. */
+    int getMeasurementType();
+    /** Function 808: Get sampling period. */
+    double getSamplingPeriod();
+    /** Function 809: Get save flag. */
+    bool getSaveFlag();
+    /** Function 810: Get save path. */
+    QString getSavePath();
+    /** Function 811: Get the text of measurement target. */
+    QString getMeasurement_Target_Text();
+    /** Function 812: Get the text of measurement type. */
+    QString getMeasurement_Type_Text();
+
 
 private:
     /** Function 002: Set display logic for measurement target. */

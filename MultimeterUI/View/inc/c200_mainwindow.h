@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 21/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -29,6 +29,7 @@
 #include <QCloseEvent>
 
 #include "h000_global_parameters.h"
+#include "c203_command_panel.h"
 
 namespace Ui {
 class MainWindow;
@@ -49,6 +50,15 @@ public:
     void changeDisplay_status(bool display_flag);
     /** Function 301: Reset display status for all the menu actions. */
     void resetAll_menu_actions();
+
+    /** Function 302: Clear content of all labels. */
+    void clearAll_labels();
+    /** Function 303: Initialize all labels when a project is created or opened. */
+    void initializeLabel(QString target, int type, double period, bool checked, QString save_path);
+    /** Function 304: Update all labels as command window settings. */
+    void updateCommand_panel_labels(QString target, int type, double period, bool checked, QString save_path);
+
+    /** Function 302 */
 
     /** Function 800: Set Settings menu action seleted. */
     void setSettings_action_checked(bool flag);
@@ -108,11 +118,6 @@ private:
     void handleSettings_triggered();
     /** Function 208: Function for Command Panel menu action triggered. */
     void handleCommand_Panel_triggered();
-
-    /** Function 300: Clear content of all labels. */
-    void clearAll_labels();
-    /** Function 301: Set all labels as default value. */
-    void setLabels_by_default();
 
     Ui::MainWindow *ui;
 

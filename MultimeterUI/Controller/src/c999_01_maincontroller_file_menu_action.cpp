@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 18/02/2019
- * Last modify date: 20/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Main window controller.
  *                   - Functions related to file menu actions.
  ******************************************************************************/
@@ -11,7 +11,7 @@
  *             Name: handleNew_Project
  *      Function ID: 231
  *      Create date: 18/02/2019
- * Last modify date: 19/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Function for handle operations related to New Project.
  ******************************************************************************/
 bool MainController::handleNew_Project()
@@ -68,6 +68,12 @@ bool MainController::handleNew_Project()
     _settings_dialog->hide();
     /** Reset all dialogs */
     _settings_dialog->resetAll_frames();
+    /** Initialize all labels */
+    _main_window->initializeLabel(_command_panel->getMeasurement_Target_Text(),
+                                  _command_panel->getMeasurementType(),
+                                  _command_panel->getSamplingPeriod(),
+                                  _command_panel->getSaveFlag(),
+                                  _command_panel->getSavePath());
 
     return true;
 }
@@ -76,7 +82,7 @@ bool MainController::handleNew_Project()
  *             Name: handleOpen_Project
  *      Function ID: 232
  *      Create date: 18/02/2019
- * Last modify date: 20/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Function for handle operations related to Open Project.
  ******************************************************************************/
 bool MainController::handleOpen_Project()
@@ -175,6 +181,13 @@ bool MainController::handleOpen_Project()
     QStringList available_ports = Serial_definitions::getSerial_port_name();
     _dmm_port = available_ports.size() > 0? available_ports.at(0):QString();
 
+    /** Initialize all labels */
+    _main_window->initializeLabel(_command_panel->getMeasurement_Target_Text(),
+                                  _command_panel->getMeasurementType(),
+                                  _command_panel->getSamplingPeriod(),
+                                  _command_panel->getSaveFlag(),
+                                  _command_panel->getSavePath());
+
     return true;
 }
 
@@ -241,11 +254,12 @@ void MainController::handleSave_Project_As()
  *             Name: handle_CloseProject
  *      Function ID: 235
  *      Create date: 18/02/2019
- * Last modify date: 15/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Function for handle operations related to Close Project.
  ******************************************************************************/
 void MainController::handleClose_Project()
 {
+    _main_window->clearAll_labels();
 #ifdef MAINCONTROLLER_DEBUG
     qDebug() << "+ MainController: handle_CloseProject";
 #endif
