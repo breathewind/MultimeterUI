@@ -25,6 +25,8 @@ void MainController::handleStart()
                                              _command_panel->getSamplingPeriod(),
                                              _command_panel->getSaveFlag(),
                                              _command_panel->getSavePath());
+
+
     /** Serial port configuration */
     _DMM_controller->setPortName(_dmm_port);
     _DMM_controller->setBaudRate(__serial_definitions.getBaudrate(_dmm_baudrate));
@@ -35,9 +37,12 @@ void MainController::handleStart()
 
     _DMM_controller->startSerial();
 
+    _run_timer->start(MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT/10);
     /** Start elapse timer */
     _previous_elapsed_time = 0;
     _elapsed_timer.start();
+
+    _DMM_controller->writeDMM_command(":SYST:REM",false);
 
     /** Start measurement */
     startMeasurement();
@@ -47,7 +52,7 @@ void MainController::handleStart()
  *             Name: handleStop
  *      Function ID: 237
  *      Create date: 18/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 02/04/2019
  *      Description: Function for handle operations related to Stop.
  ******************************************************************************/
 void MainController::handleStop()
@@ -55,4 +60,8 @@ void MainController::handleStop()
 #ifdef MAINCONTROLLER_DEBUG
     qDebug() << "+ MainController: handleStop";
 #endif
+
+    /** Set execution command as STOP */
+    _exe_command = MAINCONTROLLER_COMMAND_STOP;
+    _DMM_controller->closeSerial();
 }

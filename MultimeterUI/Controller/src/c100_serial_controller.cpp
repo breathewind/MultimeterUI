@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 28/01/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 02/04/2019
  *      Description: Serial port controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -129,7 +129,7 @@ QString Serial_Controller::readData()
  *      Description: Handler for dealing with received data from serial port.
  ******************************************************************************/
 void Serial_Controller::handleReceived_Data()
-{
+{qDebug() << "sadagfa";
     if(_data_received_flag){
         _databuffer.append(readData());
         if(_databuffer.contains("\r")){

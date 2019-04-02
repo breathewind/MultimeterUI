@@ -126,5 +126,5 @@ void MainWindow::updateMeasurement_value(double value)
  ******************************************************************************/
 void MainWindow::updateMeasurement_time(qint64 time)
 {
-    ui->label_value_value->setText(QString("%1").arg(time));
+    ui->label_value_value->setText(Global_Functions::formatTime(time));
 }

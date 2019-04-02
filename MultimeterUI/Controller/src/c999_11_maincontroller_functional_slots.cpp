@@ -41,6 +41,10 @@ void MainController::slot_update_data_from_settings()
  ******************************************************************************/
 void MainController::slot_retrieveDMM_data(QString received_data)
 {
+#ifdef MAINCONTROLLER_DEBUG
+    qDebug() << "+ MainController: " << __FUNCTION__ ;
+#endif
+    if(_exe_command == MAINCONTROLLER_COMMAND_RUN){
     _data_read_buffer = received_data;
     _main_window->updateMeasurement_value(received_data.toDouble());
 
@@ -49,6 +53,9 @@ void MainController::slot_retrieveDMM_data(QString received_data)
     qDebug() << "+ MainController: " << __FUNCTION__ << " The measurement operation took: " << elapsed_time << " milliseconds";
     qDebug() << "+ MainController: " << __FUNCTION__ << "- received_data: " << received_data;
 #endif
+    } else {
+        _DMM_controller->closeSerial();
+    }
 }
 
 /******************************************************************************
@@ -60,8 +67,16 @@ void MainController::slot_retrieveDMM_data(QString received_data)
  ******************************************************************************/
 void MainController::slot_updateRun_timer()
 {
+
+#ifdef MAINCONTROLLER_DEBUG
+    qDebug() << "+ MainController: " << __FUNCTION__ ;
+#endif
+    _run_timer->stop();
     if(_exe_command == MAINCONTROLLER_COMMAND_RUN){
         _run_timer->start(MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT);
         _main_window->updateMeasurement_time(_elapsed_timer.elapsed());
+#ifdef MAINCONTROLLER_DEBUG
+    qDebug() << "+ MainController: " << __FUNCTION__ << " Current time: " << _elapsed_timer.elapsed() << " milliseconds";
+#endif
     }
 }

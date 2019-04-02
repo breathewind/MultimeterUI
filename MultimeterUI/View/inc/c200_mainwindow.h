@@ -29,6 +29,7 @@
 #include <QCloseEvent>
 
 #include "h000_global_parameters.h"
+#include "Entities/inc/c950_global_functions.h"
 #include "c203_command_panel.h"
 
 namespace Ui {

@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 18/02/2019
- * Last modify date: 20/03/2019
+ * Last modify date: 02/04/2019
  *      Description: Global functions.
  ******************************************************************************/
 #ifndef C950_GLOBAL_FUNCTIONS_H
@@ -30,6 +30,8 @@ public:
     static QString extractFile_type(QString file_full_path);
     /** Function 006: Extract second part string in a QString separated by a space. */
     static QString extractSecondString(QString string);
+    /** Function 007: Convert time in ms to the format hh:mm:ss. */
+    static QString formatTime(qint64 time_ms);
 };
 
 #endif // C950_GLOBAL_FUNCTIONS_H

@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 28/01/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 02/04/2019
  *      Description: Serial port controller.
  *
  *  Function Number: 0XX - Normal logic functions

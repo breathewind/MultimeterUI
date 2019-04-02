@@ -16,7 +16,7 @@
  *             Name: MainController
  *      Function ID: 000
  *      Create date: 14/02/2019
- * Last modify date: 18/02/2019
+ * Last modify date: 02/04/2019
  *      Description: Construction function.
  ******************************************************************************/
 MainController::MainController()
@@ -25,6 +25,8 @@ MainController::MainController()
     initProject_operaiton();
     initRun_operaiton();
     initFunction_operaiton();
+    initSerial_operaiton();
+    initTimer();
 
     synchronizeCurrent_path(QDir::homePath());
 }

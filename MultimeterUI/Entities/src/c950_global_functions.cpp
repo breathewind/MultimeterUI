@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 18/02/2019
- * Last modify date: 20/03/2019
+ * Last modify date: 02/04/2019
  *      Description: Global functions.
  ******************************************************************************/
 #include "Entities/inc/c950_global_functions.h"
@@ -81,5 +81,33 @@ QString Global_Functions::extractFile_type(QString file_full_path)
  ***********************************************************************/
 QString Global_Functions::extractSecondString(QString string)
 {
-     return string.right(string.size() - string.indexOf(" ") - 1);
+    return string.right(string.size() - string.indexOf(" ") - 1);
+}
+
+/***********************************************************************
+ *             Name: formatTime
+ *      Function ID: 007
+ *      Create date: 02/04/2019
+ * Last modify date: 02/04/2019
+ *      Description: Convert time in ms to the format hh:mm:ss.
+ ***********************************************************************/
+QString Global_Functions::formatTime(qint64 time_ms)
+{
+    int sec;
+    int min;
+    int hour;
+
+    qint64 temp_time = time_ms/1000;
+
+    sec = temp_time % 60;
+    temp_time /= 60;
+
+    min = temp_time % 60;
+    temp_time /= 60;
+
+    hour = static_cast<int>(temp_time);
+
+    return QString("%1:%2:%3").arg(hour,2,10,QLatin1Char('0'))
+                              .arg(min ,2,10,QLatin1Char('0'))
+                              .arg(sec ,2,10,QLatin1Char('0'));
 }

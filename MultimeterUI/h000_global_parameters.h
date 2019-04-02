@@ -39,6 +39,8 @@
 #define MAINWINDOW_DEBUG
 
 #define NEWPROJECT_DEBUG
+
+//#define SERIAL_CONTROLLER_DEBUG
 #endif
 
 
