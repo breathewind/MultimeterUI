@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 21/03/2019
- * Last modify date: 01/04/2019
+ * Last modify date: 02/04/2019
  *      Description: Main window of MeasurementUI application.
  *                   - User Functions.
  ******************************************************************************/
@@ -38,10 +38,10 @@ void MainWindow::clearAll_labels()
  *             Name: setLabels_by_default
  *      Function ID: 303
  *      Create date: 21/03/2019
- * Last modify date: 01/04/2019
+ * Last modify date: 02/04/2019
  *      Description: Initialize all labels when a project is created or opened.
  ******************************************************************************/
-void MainWindow::initializeLabel(QString target, int type, double period, bool checked, QString save_path)
+void MainWindow::initializeLabel(int target, int type, double period, bool checked, QString save_path)
 {
     ui->label_text_time->setVisible(true);
     ui->label_value_time->setText("0");
@@ -58,13 +58,28 @@ void MainWindow::initializeLabel(QString target, int type, double period, bool c
 /******************************************************************************
  *             Name: updateCommand_panel_labels
  *      Function ID: 304
- *      Create date: 01/03/2019
- * Last modify date: 01/04/2019
+ *      Create date: 01/04/2019
+ * Last modify date: 02/04/2019
  *      Description: Update all labels as command window settings.
  ******************************************************************************/
-void MainWindow::updateCommand_panel_labels(QString target, int type, double period, bool checked, QString save_path)
+void MainWindow::updateCommand_panel_labels(int target, int type, double period, bool checked, QString save_path)
 {
-    ui->label_value_target->setText(target);
+    switch(target){
+    case COMMAND_PANEL_TARGET_CURRENT:
+        ui->label_value_target->setText(COMMAND_PANEL_TARGET_CURRENT_TEXT);
+        _measurement_unit = COMMAND_PANEL_UNIT_CURRENT;
+        break;
+    case COMMAND_PANEL_TARGET_VOLTAGE:
+        ui->label_value_target->setText(COMMAND_PANEL_TARGET_VOLTAGE_TEXT);
+        _measurement_unit = COMMAND_PANEL_UNIT_VOLTAGE;
+        break;
+    case COMMAND_PANEL_TARGET_RESISTANCE:
+        ui->label_value_target->setText(COMMAND_PANEL_TARGET_RESISTANCE_TEXT);
+        _measurement_unit = COMMAND_PANEL_UNIT_RESISTANCE;
+        break;
+    default:
+        break;
+    }
 
     switch(type){
     case COMMAND_PANEL_TYPE_SINGLE_DATA:
@@ -77,7 +92,8 @@ void MainWindow::updateCommand_panel_labels(QString target, int type, double per
         ui->label_text_sampling_period->setVisible(true);
         ui->label_value_sampling_period->setText(QString().number(period));
         break;
-    default:;
+    default:
+        break;
     }
 
     if(checked){
@@ -87,4 +103,28 @@ void MainWindow::updateCommand_panel_labels(QString target, int type, double per
         ui->label_text_save_path->setVisible(false);
         ui->label_value_save_path->clear();
     }
+}
+
+/******************************************************************************
+ *             Name: updateMeasurement_value
+ *      Function ID: 305
+ *      Create date: 02/04/2019
+ * Last modify date: 02/04/2019
+ *      Description: Update measurement value.
+ ******************************************************************************/
+void MainWindow::updateMeasurement_value(double value)
+{
+    ui->label_value_value->setText(QString("%1 %2").arg(value).arg(_measurement_unit));
+}
+
+/******************************************************************************
+ *             Name: updateMeasurement_time
+ *      Function ID: 306
+ *      Create date: 02/04/2019
+ * Last modify date: 02/04/2019
+ *      Description: Update measurement time.
+ ******************************************************************************/
+void MainWindow::updateMeasurement_time(qint64 time)
+{
+    ui->label_value_value->setText(QString("%1").arg(time));
 }

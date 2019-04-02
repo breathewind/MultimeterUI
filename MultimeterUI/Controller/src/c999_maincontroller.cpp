@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 19/03/2019
+ * Last modify date: 02/04/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -188,6 +188,33 @@ void MainController::initFunction_operaiton()
 }
 
 /******************************************************************************
+ *             Name: initSerial_operaiton
+ *      Function ID: 204
+ *      Create date: 01/04/2019
+ * Last modify date: 01/04/2019
+ *      Description: Initilize functions related to Serial operations.
+ ******************************************************************************/
+void MainController::initSerial_operaiton()
+{
+    /** DMM serial settings */
+    _DMM_controller = new Serial_Controller();
+    connect(_DMM_controller, &Serial_Controller::data_received, this, &MainController::slot_retrieveDMM_data);
+}
+
+/******************************************************************************
+ *             Name: initTimer
+ *      Function ID: 205
+ *      Create date: 02/04/2019
+ * Last modify date: 02/04/2019
+ *      Description: Initilize functions related to timers
+ ******************************************************************************/
+void MainController::initTimer()
+{
+    _run_timer = new QTimer();
+    connect(_run_timer, &QTimer::timeout, this, &MainController::slot_updateRun_timer);
+}
+
+/******************************************************************************
  *             Name: initNew_Project
  *      Function ID: 211
  *      Create date: 16/02/2019
@@ -340,26 +367,6 @@ void MainController::initQuit()
 void MainController::showMainwindow()
 {
     _main_window->show();
-}
-
-/******************************************************************************
- *             Name: UpdateSettings
- *      Function ID: 301
- *      Create date: 21/02/2019
- * Last modify date: 22/02/2019
- *      Description: Update all settings opertions.
- ******************************************************************************/
-void MainController::UpdateSettings()
-{
-    QStringList data_list;
-
-    data_list.append(_dmm_baudrate);
-    data_list.append(_dmm_databits);
-    data_list.append(_dmm_stopbits);
-    data_list.append(_dmm_parity);
-    data_list.append(_dmm_flowcontrol);
-
-    _settings_dialog->updateDMM_combobox(data_list);
 }
 
 /******************************************************************************

@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 01/04/2019
+ * Last modify date: 02/04/2019
  *      Description: Command Panel dialog of MultimeterUI application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -16,6 +16,10 @@
 
 #define COMMAND_PANEL_ERROR      -1
 #define COMMAND_PANEL_ERROR_TEXT "ERROR"
+
+#define COMMAND_PANEL_UNIT_CURRENT    "A"
+#define COMMAND_PANEL_UNIT_VOLTAGE    "V"
+#define COMMAND_PANEL_UNIT_RESISTANCE "Ω"
 
 #define COMMAND_PANEL_TARGET_CURRENT    0
 #define COMMAND_PANEL_TARGET_VOLTAGE    1

@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 01/04/2019
+ * Last modify date: 02/04/2019
  *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -54,11 +54,13 @@ public:
     /** Function 302: Clear content of all labels. */
     void clearAll_labels();
     /** Function 303: Initialize all labels when a project is created or opened. */
-    void initializeLabel(QString target, int type, double period, bool checked, QString save_path);
+    void initializeLabel(int target, int type, double period, bool checked, QString save_path);
     /** Function 304: Update all labels as command window settings. */
-    void updateCommand_panel_labels(QString target, int type, double period, bool checked, QString save_path);
-
-    /** Function 302 */
+    void updateCommand_panel_labels(int target, int type, double period, bool checked, QString save_path);
+    /** Function 305: Update measurement value. */
+    void updateMeasurement_value(double value);
+    /** Function 306: Update measurement time. */
+    void updateMeasurement_time(qint64 time);
 
     /** Function 800: Set Settings menu action seleted. */
     void setSettings_action_checked(bool flag);
@@ -130,6 +132,7 @@ private:
     char _project_running;
 
     QString _current_path;
+    QString _measurement_unit;
 
 private slots:
     /** Function 700: Slot for New Project menu action triggered. */

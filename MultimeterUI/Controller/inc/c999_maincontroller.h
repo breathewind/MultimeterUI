@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 18/03/2019
+ * Last modify date: 02/04/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -33,7 +33,12 @@
 #define MAINCONTROLLER_DIR_CREATE_SUCCEED 0
 #define MAINCONTROLLER_DIR_CREATE_FAIL    1
 
+#define MAINCONTROLLER_COMMAND_STOP  0
+#define MAINCONTROLLER_COMMAND_RUN   1
+#define MAINCONTROLLER_COMMAND_PAUSE 2
+
 #include <QObject>
+#include <QElapsedTimer>
 
 #include "h000_global_parameters.h"
 #include "Entities/inc/c950_global_functions.h"
@@ -71,8 +76,12 @@ private:
     void initProject_operaiton();
     /** Function 202: Initilize functions related to Run operations. */
     void initRun_operaiton();
-    /** Function 202: Initilize functions related to Function operations. */
+    /** Function 203: Initilize functions related to Function operations. */
     void initFunction_operaiton();
+    /** Function 204: Initilize functions related to Serial operations. */
+    void initSerial_operaiton();
+    /** Function 205: Initilize functions related to timers. */
+    void initTimer();
 
 
     /** Function 211: Initilize functions related to New Project operations. */
@@ -122,6 +131,10 @@ private:
 
     /** Function 301: Update all settings opertions. */
     void UpdateSettings();
+    /** Function 302: Start meausuremnt. */
+    void startMeasurement();
+    /** Function 303: Send one measurement request to DMM. */
+    void sendMeasurement_request();
 
     /** Function 600: Print data read from project file. */
     void printData_read_from_project_file(QString domain, QString content);
@@ -146,7 +159,20 @@ private:
     QString _project_output_path;
     QString _output_file_name;
 
+    /** Parameters for execution. */
+    int _exe_command;
+
+    QTimer *_run_timer;
+    QElapsedTimer _elapsed_timer;
+    qint64 _previous_elapsed_time;
+
     /** Parameters for serial communication. */
+    Serial_Controller *_DMM_controller;
+    QString _data_read_buffer;
+
+    QString _meausrement_command;
+    bool _continue_sampling_flag;
+
     Settings_Dialog* _settings_dialog;
 
     QString _dmm_port;
@@ -186,6 +212,10 @@ private slots:
 
     /** Function 750: Slot for updating data from settings dialog to main controller. */
     void slot_update_data_from_settings();
+    /** Function 751: Slot for retrieving data from DMM when one data to read is ready. */
+    void slot_retrieveDMM_data(QString received_data);
+    /** Function 752: Slot for updating run timer when run timer timeout. */
+    void slot_updateRun_timer();
 signals:
     /** Signal 001: Signal for synchronizing project path. */
     void signal_synchronizeCurrent_Path(QString project_path);

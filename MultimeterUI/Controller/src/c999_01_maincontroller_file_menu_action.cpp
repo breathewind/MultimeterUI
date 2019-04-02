@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 18/02/2019
- * Last modify date: 01/04/2019
+ * Last modify date: 02/04/2019
  *      Description: Main window controller.
  *                   - Functions related to file menu actions.
  ******************************************************************************/
@@ -11,7 +11,7 @@
  *             Name: handleNew_Project
  *      Function ID: 231
  *      Create date: 18/02/2019
- * Last modify date: 01/04/2019
+ * Last modify date: 02/04/2019
  *      Description: Function for handle operations related to New Project.
  ******************************************************************************/
 bool MainController::handleNew_Project()
@@ -58,6 +58,8 @@ bool MainController::handleNew_Project()
 
     file.flush();
     file.close();
+    /** Set execution command as STOP */
+    _exe_command = MAINCONTROLLER_COMMAND_STOP;
     /** Show command panel when a new project is created. */
     _command_panel->setDefault(_project_output_path + MULTIMETERUI_DIR_SYMBOL + _output_file_name);
 
@@ -69,7 +71,7 @@ bool MainController::handleNew_Project()
     /** Reset all dialogs */
     _settings_dialog->resetAll_frames();
     /** Initialize all labels */
-    _main_window->initializeLabel(_command_panel->getMeasurement_Target_Text(),
+    _main_window->initializeLabel(_command_panel->getMeasurementTarget(),
                                   _command_panel->getMeasurementType(),
                                   _command_panel->getSamplingPeriod(),
                                   _command_panel->getSaveFlag(),
@@ -82,7 +84,7 @@ bool MainController::handleNew_Project()
  *             Name: handleOpen_Project
  *      Function ID: 232
  *      Create date: 18/02/2019
- * Last modify date: 01/04/2019
+ * Last modify date: 02/04/2019
  *      Description: Function for handle operations related to Open Project.
  ******************************************************************************/
 bool MainController::handleOpen_Project()
@@ -181,8 +183,10 @@ bool MainController::handleOpen_Project()
     QStringList available_ports = Serial_definitions::getSerial_port_name();
     _dmm_port = available_ports.size() > 0? available_ports.at(0):QString();
 
+    /** Set execution command as STOP */
+    _exe_command = MAINCONTROLLER_COMMAND_STOP;
     /** Initialize all labels */
-    _main_window->initializeLabel(_command_panel->getMeasurement_Target_Text(),
+    _main_window->initializeLabel(_command_panel->getMeasurementTarget(),
                                   _command_panel->getMeasurementType(),
                                   _command_panel->getSamplingPeriod(),
                                   _command_panel->getSaveFlag(),

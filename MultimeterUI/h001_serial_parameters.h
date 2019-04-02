@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 01/04/2019
  *      Description: Global parameters related to serial port.
  ******************************************************************************/
 #ifndef H001_SERIAL_PARAMETERS_H
@@ -20,7 +20,9 @@
 #define SERIAL_INDEX_FLOWCONTROL 4
 #define SERIAL_INDEX_PORT        5
 
-#define MEASUREMENTUI_CURRENT_COMMAND ":MEAS:CURR:DC?"
+#define MEASUREMENTUI_CURRENT_COMMAND    ":MEAS:CURR:DC?"
+#define MEASUREMENTUI_VOLTAGE_COMMAND    ":MEAS:VOLT:DC?"
+#define MEASUREMENTUI_RESISTANCE_COMMAND ":MEAS:RES?"
 
 #include "Entities/inc/c900_serial_definitions.h"
 

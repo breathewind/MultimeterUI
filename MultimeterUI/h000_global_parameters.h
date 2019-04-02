@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 16/02/2019
- * Last modify date: 20/03/2019
+ * Last modify date: 02/04/2019
  *      Description: Global parameters.
  ******************************************************************************/
 #ifndef H000_GLOBAL_PARAMETERS_H
@@ -21,6 +21,7 @@
 #define MULTIMETERUI_DEFAULT_OUTPUT_FILE_NAME "result.txt"
 #define MULTIMETERUI_DEFAULT_OUTPUT_FILE_SUFFIX "txt"
 
+#define MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT 1000
 
 #define MULTIMETERUI_DEFAULT_TARGET "Current"
 #define MULTIMETERUI_DEFAULT_TYPE "Current"
