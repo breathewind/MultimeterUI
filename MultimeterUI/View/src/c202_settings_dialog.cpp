@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 18/03/2019
+ * Last modify date: 03/04/2019
  *      Description: Settings dialog of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -18,7 +18,7 @@
  *             Name: Settings_Dialog
  *      Function ID: 000
  *      Create date: 14/03/2019
- * Last modify date: 14/03/2019
+ * Last modify date: 03/04/2019
  *      Description: Construction function.
  ******************************************************************************/
 Settings_Dialog::Settings_Dialog(QWidget *parent) :
@@ -28,6 +28,7 @@ Settings_Dialog::Settings_Dialog(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowTitle("Settings");
+    setFixedSize(455, 336);
     initDMM_group();
 }
 

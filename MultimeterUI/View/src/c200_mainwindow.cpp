@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 01/04/2019
+ * Last modify date: 03/04/2019
  *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -18,7 +18,7 @@
  *             Name: MainWindow
  *      Function ID: 000
  *      Create date: 30/01/2019
- * Last modify date: 21/03/2019
+ * Last modify date: 03/04/2019
  *      Description: Construction function.
  ******************************************************************************/
 MainWindow::MainWindow(QWidget *parent) :
@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle(APP_NAME);
+    setFixedSize(800, 518);
 
     clearAll_labels();
     initializeRun_time_group();
