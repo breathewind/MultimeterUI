@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 01/04/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 03/04/2019
  *      Description: Main window controller.
  *                   - User Functions.
  ******************************************************************************/
@@ -31,7 +31,7 @@ void MainController::UpdateSettings()
  *             Name: UpdateSettings
  *      Function ID: 302
  *      Create date: 01/04/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 03/04/2019
  *      Description: Start meausuremnt.
  ******************************************************************************/
 void MainController::startMeasurement()
@@ -58,6 +58,7 @@ void MainController::startMeasurement()
     switch (_command_panel->getMeasurementType()) {
     case COMMAND_PANEL_TYPE_SINGLE_DATA:
         _continue_sampling_flag = false;
+        _main_window->setEnable_execution_buttons(false);
         break;
     case COMMAND_PANEL_TYPE_PERIODIC_SAMPLING:
         _continue_sampling_flag = true;

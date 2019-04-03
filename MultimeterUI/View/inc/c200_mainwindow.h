@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 03/04/2019
  *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -62,6 +62,10 @@ public:
     void updateMeasurement_value(double value);
     /** Function 306: Update measurement time. */
     void updateMeasurement_time(qint64 time);
+    /** Function 307: Set the buttons related to exection as the operation "STOP". */
+    void setSTOP();
+    /** Function 308: Enable/disable the buttons related to exection. */
+    void setEnable_execution_buttons(bool flag);
 
     /** Function 800: Set Settings menu action seleted. */
     void setSettings_action_checked(bool flag);

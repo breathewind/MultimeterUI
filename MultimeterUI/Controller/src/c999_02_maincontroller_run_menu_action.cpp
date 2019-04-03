@@ -37,10 +37,11 @@ void MainController::handleStart()
 
     _DMM_controller->startSerial();
 
-    _run_timer->start(MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT/10);
+    _run_timer->start(static_cast<int>(COMMAND_PANEL_MINIMUM_SAMPLING_PERIOD*1000)+MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT/10);
     /** Start elapse timer */
     _previous_elapsed_time = 0;
     _elapsed_timer.start();
+    _main_window->updateMeasurement_time(_elapsed_timer.elapsed());
 
     _DMM_controller->writeDMM_command(":SYST:REM",false);
 

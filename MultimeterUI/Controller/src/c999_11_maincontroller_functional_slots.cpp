@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 22/02/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 03/04/2019
  *      Description: Main window controller.
  *                   - Functional slots.
  ******************************************************************************/
@@ -62,7 +62,7 @@ void MainController::slot_retrieveDMM_data(QString received_data)
  *             Name: slot_updateRun_timer
  *      Function ID: 752
  *      Create date: 02/04/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 03/04/2019
  *      Description: Slot for updating run timer when run timer timeout.
  ******************************************************************************/
 void MainController::slot_updateRun_timer()
@@ -73,7 +73,14 @@ void MainController::slot_updateRun_timer()
 #endif
     _run_timer->stop();
     if(_exe_command == MAINCONTROLLER_COMMAND_RUN){
-        _run_timer->start(MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT);
+        if(_continue_sampling_flag){
+            _run_timer->start(MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT);
+        } else {
+            // Used for updating _exe_commnad when the measurement type is "single data"
+            _exe_command = MAINCONTROLLER_COMMAND_STOP;
+            _main_window->setSTOP();
+            _main_window->setEnable_execution_buttons(true);
+        }
         _main_window->updateMeasurement_time(_elapsed_timer.elapsed());
 #ifdef MAINCONTROLLER_DEBUG
     qDebug() << "+ MainController: " << __FUNCTION__ << " Current time: " << _elapsed_timer.elapsed() << " milliseconds";

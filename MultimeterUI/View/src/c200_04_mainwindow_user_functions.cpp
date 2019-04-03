@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 21/03/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 03/04/2019
  *      Description: Main window of MeasurementUI application.
  *                   - User Functions.
  ******************************************************************************/
@@ -109,7 +109,7 @@ void MainWindow::updateCommand_panel_labels(int target, int type, double period,
  *             Name: updateMeasurement_value
  *      Function ID: 305
  *      Create date: 02/04/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 03/04/2019
  *      Description: Update measurement value.
  ******************************************************************************/
 void MainWindow::updateMeasurement_value(double value)
@@ -126,5 +126,31 @@ void MainWindow::updateMeasurement_value(double value)
  ******************************************************************************/
 void MainWindow::updateMeasurement_time(qint64 time)
 {
-    ui->label_value_value->setText(Global_Functions::formatTime(time));
+    ui->label_value_time->setText(Global_Functions::formatTime(time));
+}
+
+/******************************************************************************
+ *             Name: setSTOP
+ *      Function ID: 307
+ *      Create date: 03/04/2019
+ * Last modify date: 03/04/2019
+ *      Description: Set the buttons related to exection as the operation
+ *                   "STOP".
+ ******************************************************************************/
+void MainWindow::setSTOP()
+{
+    handleStop_triggered();
+}
+
+/******************************************************************************
+ *             Name: setEnable_execution_buttons
+ *      Function ID: 308
+ *      Create date: 03/04/2019
+ * Last modify date: 03/04/2019
+ *      Description: Set the buttons related to exection as the operation
+ *                   "STOP".
+ ******************************************************************************/
+void MainWindow::setEnable_execution_buttons(bool flag)
+{
+    _run_time_group->setEnabled(flag);
 }

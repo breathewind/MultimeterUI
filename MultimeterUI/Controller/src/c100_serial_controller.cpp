@@ -129,7 +129,7 @@ QString Serial_Controller::readData()
  *      Description: Handler for dealing with received data from serial port.
  ******************************************************************************/
 void Serial_Controller::handleReceived_Data()
-{qDebug() << "sadagfa";
+{
     if(_data_received_flag){
         _databuffer.append(readData());
         if(_databuffer.contains("\r")){
