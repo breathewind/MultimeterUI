@@ -135,6 +135,8 @@ private:
     void startMeasurement();
     /** Function 303: Send one measurement request to DMM. */
     void sendMeasurement_request();
+    /** Function 304: Enable/disable command panel and settings dialog. */
+    void setEnable_command_and_settings(bool flag);
 
     /** Function 600: Print data read from project file. */
     void printData_read_from_project_file(QString domain, QString content);

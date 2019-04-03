@@ -89,3 +89,16 @@ void MainController::sendMeasurement_request()
     _DMM_controller->writeDMM_command(":SYST:REM", false);
     _DMM_controller->writeDMM_command(_meausrement_command);
 }
+
+/******************************************************************************
+ *             Name: setEnable_command_and_settings
+ *      Function ID: 304
+ *      Create date: 03/04/2019
+ * Last modify date: 03/04/2019
+ *      Description: Enable/disable command panel and settings dialog.
+ ******************************************************************************/
+void MainController::setEnable_command_and_settings(bool flag)
+{
+    _command_panel->setEnabled(flag);
+    _settings_dialog->setEnabled(flag);
+}

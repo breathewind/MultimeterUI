@@ -80,6 +80,7 @@ void MainController::slot_updateRun_timer()
             _exe_command = MAINCONTROLLER_COMMAND_STOP;
             _main_window->setSTOP();
             _main_window->setEnable_execution_buttons(true);
+            setEnable_command_and_settings(true);
         }
         _main_window->updateMeasurement_time(_elapsed_timer.elapsed());
 #ifdef MAINCONTROLLER_DEBUG
