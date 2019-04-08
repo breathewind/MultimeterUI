@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 08/04/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -167,6 +167,7 @@ private:
     QTimer *_run_timer;
     QElapsedTimer _elapsed_timer;
     qint64 _previous_elapsed_time;
+    QTimer *_sampling_timer;
 
     /** Parameters for serial communication. */
     Serial_Controller *_DMM_controller;
@@ -174,6 +175,7 @@ private:
 
     QString _meausrement_command;
     bool _continue_sampling_flag;
+    double _sampling_period;
 
     Settings_Dialog* _settings_dialog;
 
@@ -218,6 +220,9 @@ private slots:
     void slot_retrieveDMM_data(QString received_data);
     /** Function 752: Slot for updating run timer when run timer timeout. */
     void slot_updateRun_timer();
+    /** Function 753: Slot for updating sampling timer when sampling timer timeout. */
+    void slot_updateSampling_timer();
+
 signals:
     /** Signal 001: Signal for synchronizing project path. */
     void signal_synchronizeCurrent_Path(QString project_path);

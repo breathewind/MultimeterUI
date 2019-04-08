@@ -31,7 +31,7 @@ void MainController::UpdateSettings()
  *             Name: UpdateSettings
  *      Function ID: 302
  *      Create date: 01/04/2019
- * Last modify date: 03/04/2019
+ * Last modify date: 08/04/2019
  *      Description: Start meausuremnt.
  ******************************************************************************/
 void MainController::startMeasurement()
@@ -62,6 +62,9 @@ void MainController::startMeasurement()
         break;
     case COMMAND_PANEL_TYPE_PERIODIC_SAMPLING:
         _continue_sampling_flag = true;
+        _sampling_period = _command_panel->getSamplingPeriod();
+        _main_window->setEnable_execution_buttons(false);
+
         break;
     default:
 #ifdef MAINCONTROLLER_DEBUG

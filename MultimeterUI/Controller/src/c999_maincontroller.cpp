@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 08/04/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -207,13 +207,15 @@ void MainController::initSerial_operaiton()
  *             Name: initTimer
  *      Function ID: 205
  *      Create date: 02/04/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 08/04/2019
  *      Description: Initilize functions related to timers
  ******************************************************************************/
 void MainController::initTimer()
 {
     _run_timer = new QTimer();
     connect(_run_timer, &QTimer::timeout, this, &MainController::slot_updateRun_timer);
+    _sampling_timer = new QTimer();
+    connect(_run_timer, &QTimer::timeout, this, &MainController::slot_updateSampling_timer);
 }
 
 /******************************************************************************

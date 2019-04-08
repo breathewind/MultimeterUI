@@ -66,6 +66,5 @@ void MainController::handleStop()
 
     /** Set execution command as STOP */
     _exe_command = MAINCONTROLLER_COMMAND_STOP;
-    _DMM_controller->closeSerial();
-    setEnable_command_and_settings(true);
+    _main_window->setEnable_execution_buttons(false);
 }
