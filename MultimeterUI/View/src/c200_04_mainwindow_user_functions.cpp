@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 21/03/2019
- * Last modify date: 03/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Main window of MeasurementUI application.
  *                   - User Functions.
  ******************************************************************************/
@@ -90,7 +90,7 @@ void MainWindow::updateCommand_panel_labels(int target, int type, double period,
     case COMMAND_PANEL_TYPE_PERIODIC_SAMPLING:
         ui->label_value_type->setText(COMMAND_PANEL_TYPE_PERIODIC_SAMPLING_TEXT);
         ui->label_text_sampling_period->setVisible(true);
-        ui->label_value_sampling_period->setText(QString().number(period));
+        ui->label_value_sampling_period->setText(QString().number(period)+ " s");
         break;
     default:
         break;
@@ -121,7 +121,7 @@ void MainWindow::updateMeasurement_value(double value)
  *             Name: updateMeasurement_time
  *      Function ID: 306
  *      Create date: 02/04/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Update measurement time.
  ******************************************************************************/
 void MainWindow::updateMeasurement_time(qint64 time)
@@ -153,4 +153,16 @@ void MainWindow::setSTOP()
 void MainWindow::setEnable_execution_buttons(bool flag)
 {
     _run_time_group->setEnabled(flag);
+}
+
+/******************************************************************************
+ *             Name: addChart_view
+ *      Function ID: 309
+ *      Create date: 08/04/2019
+ * Last modify date: 12/04/2019
+ *      Description: Add a chart view to mainwindow.
+ ******************************************************************************/
+void MainWindow::addChart_view(QChartView *chart)
+{
+    ui->verticalLayout_chart->addWidget(chart);
 }

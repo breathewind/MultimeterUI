@@ -35,7 +35,7 @@ void MainController::slot_update_data_from_settings()
  *             Name: slot_retrieveDMM_data
  *      Function ID: 751
  *      Create date: 01/04/2019
- * Last modify date: 08/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Slot for retrieving data from DMM when capture timer
  *                   timeout is reached.
  ******************************************************************************/
@@ -44,20 +44,22 @@ void MainController::slot_retrieveDMM_data(QString received_data)
 #ifdef MAINCONTROLLER_DEBUG
     qDebug() << "+ MainController: " << __FUNCTION__ ;
 #endif
-//    if(_exe_command == MAINCONTROLLER_COMMAND_RUN){
+    qint64 elapsed_time = _elapsed_timer.elapsed();
+    qint64 this_measurement_time = elapsed_time - _previous_elapsed_time;
+    _previous_elapsed_time = elapsed_time;
+
     _data_read_buffer = received_data;
     _main_window->updateMeasurement_value(received_data.toDouble());
 
+    if(_continue_sampling_flag){
+        _chart_controller->addOne_new_point(static_cast<int>(this_measurement_time), received_data.toDouble());
+    }
+
 #ifdef MAINCONTROLLER_DEBUG
-    qint64 elapsed_time = _elapsed_timer.elapsed() - _previous_elapsed_time;
-    qDebug() << "+ MainController: " << __FUNCTION__ << " The measurement operation took: " << elapsed_time << " milliseconds";
+//    qint64 elapsed_time = _elapsed_timer.elapsed() - _previous_elapsed_time;
+    qDebug() << "+ MainController: " << __FUNCTION__ << " The measurement operation took: " << this_measurement_time << " milliseconds";
     qDebug() << "+ MainController: " << __FUNCTION__ << "- received_data: " << received_data;
 #endif
-//    } else {
-//        _DMM_controller->closeSerial();
-//        _main_window->setEnable_execution_buttons(true);
-//        setEnable_command_and_settings(true);
-//    }
 }
 
 /******************************************************************************

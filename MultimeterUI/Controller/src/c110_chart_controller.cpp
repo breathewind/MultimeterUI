@@ -140,6 +140,9 @@ void Chart_Controller::reset(QString chart_title, qint64 x_range, QString y_unit
 
     for (int i=0; i<_y_range; i++) {
         _axisY->remove(QString("%1 %2").arg(i).arg(_y_unit));
+#ifdef CHART_CONTROLLER_DEBUG
+    qDebug() << i;
+#endif
     }
 
     _y_unit = y_unit;

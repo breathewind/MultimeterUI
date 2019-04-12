@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 30/01/2019
- * Last modify date: 03/04/2019
+ * Last modify date: 08/04/2019
  *      Description: Main window of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -30,6 +30,7 @@
 
 #include "h000_global_parameters.h"
 #include "Entities/inc/c950_global_functions.h"
+#include "Controller/inc/c110_chart_controller.h"
 #include "c203_command_panel.h"
 
 namespace Ui {
@@ -66,6 +67,9 @@ public:
     void setSTOP();
     /** Function 308: Enable/disable the buttons related to exection. */
     void setEnable_execution_buttons(bool flag);
+
+    /** Function 309: Add a chart view to mainwindow. */
+    void addChart_view(QChartView *chart);
 
     /** Function 800: Set Settings menu action seleted. */
     void setSettings_action_checked(bool flag);

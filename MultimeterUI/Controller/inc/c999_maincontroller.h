@@ -44,6 +44,7 @@
 #include "Entities/inc/c950_global_functions.h"
 
 #include "Controller/inc/c100_serial_controller.h"
+#include "Controller/inc/c110_chart_controller.h"
 
 #include "View/inc/c200_mainwindow.h"
 #include "View/inc/c201_new_project_dialog.h"
@@ -82,6 +83,8 @@ private:
     void initSerial_operaiton();
     /** Function 205: Initilize functions related to timers. */
     void initTimer();
+    /** Function 206: Initilize functions related to charts. */
+    void initChart();
 
 
     /** Function 211: Initilize functions related to New Project operations. */
@@ -186,8 +189,12 @@ private:
     QString _dmm_parity;
     QString _dmm_flowcontrol;
 
-    /** Parameters for control measurement. */
+    /** Parameters for controlling measurement. */
     Command_Panel* _command_panel;
+
+    /** Parameters for controlling charts. */
+    Chart_Controller* _chart_controller;
+
 
 private slots:
     /** Function 700: Slot for new project created. */

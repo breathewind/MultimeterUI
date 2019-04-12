@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 08/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -16,7 +16,7 @@
  *             Name: MainController
  *      Function ID: 000
  *      Create date: 14/02/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Construction function.
  ******************************************************************************/
 MainController::MainController()
@@ -27,6 +27,7 @@ MainController::MainController()
     initFunction_operaiton();
     initSerial_operaiton();
     initTimer();
+    initChart();
 
     synchronizeCurrent_path(QDir::homePath());
 }
@@ -216,6 +217,20 @@ void MainController::initTimer()
     connect(_run_timer, &QTimer::timeout, this, &MainController::slot_updateRun_timer);
     _sampling_timer = new QTimer();
     connect(_run_timer, &QTimer::timeout, this, &MainController::slot_updateSampling_timer);
+}
+
+/******************************************************************************
+ *             Name: initChart
+ *      Function ID: 206
+ *      Create date: 08/04/2019
+ * Last modify date: 12/04/2019
+ *      Description: Initilize functions related to charts.
+ ******************************************************************************/
+void MainController::initChart()
+{
+    _chart_controller = new Chart_Controller(tr(""), CHART_CONTROLLER_DEFAULT_TIME_RANGE, tr("A"));
+    _main_window->addChart_view(_chart_controller->getChart_view());
+
 }
 
 /******************************************************************************

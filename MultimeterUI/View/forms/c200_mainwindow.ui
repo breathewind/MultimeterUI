@@ -23,7 +23,7 @@
       <height>261</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_battery_voltage"/>
+    <layout class="QVBoxLayout" name="verticalLayout_chart"/>
    </widget>
    <widget class="QLabel" name="label_text_target">
     <property name="geometry">
@@ -211,7 +211,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -219,8 +219,8 @@
      <rect>
       <x>1711</x>
       <y>108</y>
-      <width>176</width>
-      <height>203</height>
+      <width>164</width>
+      <height>222</height>
      </rect>
     </property>
     <property name="title">

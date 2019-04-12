@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 01/04/2019
- * Last modify date: 03/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Main window controller.
  *                   - User Functions.
  ******************************************************************************/
@@ -31,22 +31,30 @@ void MainController::UpdateSettings()
  *             Name: UpdateSettings
  *      Function ID: 302
  *      Create date: 01/04/2019
- * Last modify date: 08/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Start meausuremnt.
  ******************************************************************************/
 void MainController::startMeasurement()
 {
 /** Set measurement information */
+    QString chart_title;
+    QString y_unit;
     /** Set meausurement command */
     switch(_command_panel->getMeasurementTarget()){
     case COMMAND_PANEL_TARGET_CURRENT:
         _meausrement_command = MEASUREMENTUI_CURRENT_COMMAND;
+        chart_title = "Current";
+        y_unit = COMMAND_PANEL_UNIT_CURRENT;
         break;
     case COMMAND_PANEL_TARGET_VOLTAGE:
         _meausrement_command = MEASUREMENTUI_VOLTAGE_COMMAND;
+        chart_title = "Voltage";
+        y_unit = COMMAND_PANEL_UNIT_VOLTAGE;
         break;
     case COMMAND_PANEL_TARGET_RESISTANCE:
         _meausrement_command = MEASUREMENTUI_RESISTANCE_COMMAND;
+        chart_title = "Resistance";
+        y_unit = COMMAND_PANEL_UNIT_RESISTANCE;
         break;
     default:
 #ifdef MAINCONTROLLER_DEBUG
@@ -64,6 +72,8 @@ void MainController::startMeasurement()
         _continue_sampling_flag = true;
         _sampling_period = _command_panel->getSamplingPeriod();
         _main_window->setEnable_execution_buttons(false);
+
+        _chart_controller->reset(chart_title, 0, y_unit);
 
         break;
     default:
