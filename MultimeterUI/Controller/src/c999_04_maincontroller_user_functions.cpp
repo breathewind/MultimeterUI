@@ -87,6 +87,7 @@ void MainController::startMeasurement()
         return;
     }
 
+    _sampling_timer->start(static_cast<int>(COMMAND_PANEL_MINIMUM_SAMPLING_PERIOD*1000)+MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT/10);
 
     /** Set execution command as RUN */
     _exe_command = MAINCONTROLLER_COMMAND_RUN;

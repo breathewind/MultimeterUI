@@ -53,6 +53,7 @@ void MainController::slot_retrieveDMM_data(QString received_data)
 
     if(_continue_sampling_flag){
         _chart_controller->addOne_new_point(static_cast<int>(this_measurement_time), received_data.toDouble());
+
         if(_command_panel->getSaveFlag()){
             Global_Functions::appendOne_line(_command_panel->getSavePath(),QStringList() << QString::number(elapsed_time/1000.0)  << QString::number(received_data.toDouble(), 'f', 7));
         }
@@ -62,6 +63,7 @@ void MainController::slot_retrieveDMM_data(QString received_data)
 //    qint64 elapsed_time = _elapsed_timer.elapsed() - _previous_elapsed_time;
     qDebug() << "+ MainController: " << __FUNCTION__ << " The measurement operation took: " << this_measurement_time << " milliseconds";
     qDebug() << "+ MainController: " << __FUNCTION__ << "- received_data: " << received_data;
+
 #endif
 }
 
@@ -100,7 +102,7 @@ void MainController::slot_updateRun_timer()
  *             Name: slot_updateSampling_timer
  *      Function ID: 753
  *      Create date: 08/04/2019
- * Last modify date: 08/04/2019
+ * Last modify date: 29/04/2019
  *      Description: Slot for updating sampling timer when sampling timer
  *                   timeout.
  ******************************************************************************/
@@ -111,7 +113,10 @@ void MainController::slot_updateSampling_timer()
 #endif
     _sampling_timer->stop();
     _main_window->setEnable_execution_buttons(true);
-    if(_exe_command == MAINCONTROLLER_COMMAND_RUN){
+    if(_exe_command == MAINCONTROLLER_COMMAND_RUN && _continue_sampling_flag){
+#ifdef MAINCONTROLLER_DEBUG
+    qDebug() << "+ MainController: " << __FUNCTION__ << "Sampling period" << static_cast<int>(_sampling_period*1000);
+#endif
         _sampling_timer->start(static_cast<int>(_sampling_period*1000));
         sendMeasurement_request();
     } else {
