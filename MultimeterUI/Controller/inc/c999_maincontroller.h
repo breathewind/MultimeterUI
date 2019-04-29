@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 08/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -141,6 +141,11 @@ private:
     /** Function 304: Enable/disable command panel and settings dialog. */
     void setEnable_command_and_settings(bool flag);
 
+    /** Function 305: Create a new output file if the file of filepath not exists.. */
+    void createOutput_file(QString filepath);
+    /** Function 306: Append one line of data to an already existed output file. */
+    void appendOutput_file(QString filepath, QString data_line);
+
     /** Function 600: Print data read from project file. */
     void printData_read_from_project_file(QString domain, QString content);
 #ifdef MAINCONTROLLER_DEBUG
@@ -194,7 +199,6 @@ private:
 
     /** Parameters for controlling charts. */
     Chart_Controller* _chart_controller;
-
 
 private slots:
     /** Function 700: Slot for new project created. */

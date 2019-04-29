@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 18/02/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 29/04/2019
  *      Description: Global functions.
  ******************************************************************************/
 #include "Entities/inc/c950_global_functions.h"
@@ -109,5 +109,58 @@ QString Global_Functions::formatTime(qint64 time_ms)
 
     return QString("%1:%2:%3").arg(hour,2,10,QLatin1Char('0'))
                               .arg(min ,2,10,QLatin1Char('0'))
-                              .arg(sec ,2,10,QLatin1Char('0'));
+            .arg(sec ,2,10,QLatin1Char('0'));
+}
+
+
+/***********************************************************************
+ *             Name: createNew_file
+ *      Function ID: 008
+ *      Create date: 29/04/2019
+ * Last modify date: 29/04/2019
+ *      Description: Create new file.
+ ***********************************************************************/
+int Global_Functions::createNew_file(QString file_path, QString target)
+{
+    QFile output_file(file_path);
+    if(output_file.exists()){
+        output_file.remove();
+    }
+    if(output_file.open(QFile::WriteOnly|QFile::Text)){
+        QTextStream out_stream(&output_file);
+        out_stream << "Time(s)," << target << MULTIMETERUI_DAFAULT_NEW_LINE;
+        out_stream.flush();
+        output_file.close();
+    } else {
+        return GF_FILE_OPERATION_FAIL_CREATE;
+    }
+    return GF_FILE_OPERATION_SUCCESS;
+}
+
+/***********************************************************************
+ *             Name: createNew_file
+ *      Function ID: 009
+ *      Create date: 29/04/2019
+ * Last modify date: 29/04/2019
+ *      Description: Append one line to file.
+ ***********************************************************************/
+int Global_Functions::appendOne_line(QString file_path, QStringList content, QString separate_symbol)
+{
+    QFile output_file(file_path);
+
+    if(output_file.open(QFile::WriteOnly|QFile::Text|QFile::Append)){
+        QTextStream out_stream(&output_file);
+        if(content.length()>0){
+            out_stream << content.at(0);
+            for (int i=1; i<content.length();i++) {
+                out_stream << separate_symbol << content.at(i);
+            }
+        }
+        out_stream << MULTIMETERUI_DAFAULT_NEW_LINE;
+        out_stream.flush();
+        output_file.close();
+    } else {
+        return GF_FILE_OPERATION_FAIL_APPEND;
+    }
+    return GF_FILE_OPERATION_SUCCESS;
 }

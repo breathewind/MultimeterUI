@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 22/02/2019
- * Last modify date: 08/04/2019
+ * Last modify date: 29/04/2019
  *      Description: Main window controller.
  *                   - Functional slots.
  ******************************************************************************/
@@ -35,7 +35,7 @@ void MainController::slot_update_data_from_settings()
  *             Name: slot_retrieveDMM_data
  *      Function ID: 751
  *      Create date: 01/04/2019
- * Last modify date: 12/04/2019
+ * Last modify date: 29/04/2019
  *      Description: Slot for retrieving data from DMM when capture timer
  *                   timeout is reached.
  ******************************************************************************/
@@ -53,6 +53,9 @@ void MainController::slot_retrieveDMM_data(QString received_data)
 
     if(_continue_sampling_flag){
         _chart_controller->addOne_new_point(static_cast<int>(this_measurement_time), received_data.toDouble());
+        if(_command_panel->getSaveFlag()){
+            Global_Functions::appendOne_line(_command_panel->getSavePath(),QStringList() << QString::number(elapsed_time/1000.0)  << QString::number(received_data.toDouble(), 'f', 7));
+        }
     }
 
 #ifdef MAINCONTROLLER_DEBUG

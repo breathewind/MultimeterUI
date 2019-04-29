@@ -59,7 +59,7 @@ void MainWindow::initializeLabel(int target, int type, double period, bool check
  *             Name: updateCommand_panel_labels
  *      Function ID: 304
  *      Create date: 01/04/2019
- * Last modify date: 02/04/2019
+ * Last modify date: 12/04/2019
  *      Description: Update all labels as command window settings.
  ******************************************************************************/
 void MainWindow::updateCommand_panel_labels(int target, int type, double period, bool checked, QString save_path)
