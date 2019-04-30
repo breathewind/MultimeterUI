@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/02/2019
- * Last modify date: 12/04/2019
+ * Last modify date: 30/04/2019
  *      Description: Main window controller.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -36,6 +36,8 @@
 #define MAINCONTROLLER_COMMAND_STOP  0
 #define MAINCONTROLLER_COMMAND_RUN   1
 #define MAINCONTROLLER_COMMAND_PAUSE 2
+
+#define MAINCONTROLLER_IDN_COMMAND 0
 
 #include <QObject>
 #include <QElapsedTimer>
@@ -146,6 +148,9 @@ private:
     /** Function 306: Append one line of data to an already existed output file. */
     void appendOutput_file(QString filepath, QString data_line);
 
+    /* Function 307: Start IND test. */
+    void startIDN_test();
+
     /** Function 600: Print data read from project file. */
     void printData_read_from_project_file(QString domain, QString content);
 #ifdef MAINCONTROLLER_DEBUG
@@ -180,6 +185,7 @@ private:
     /** Parameters for serial communication. */
     Serial_Controller *_DMM_controller;
     QString _data_read_buffer;
+    int _idn_command;
 
     QString _meausrement_command;
     bool _continue_sampling_flag;
@@ -233,6 +239,8 @@ private slots:
     void slot_updateRun_timer();
     /** Function 753: Slot for updating sampling timer when sampling timer timeout. */
     void slot_updateSampling_timer();
+    /** Function 754: Slot for starting IDN test. */
+    void slot_startIDN_test();
 
 signals:
     /** Signal 001: Signal for synchronizing project path. */

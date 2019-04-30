@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 22/02/2019
- * Last modify date: 29/04/2019
+ * Last modify date: 30/04/2019
  *      Description: Main window controller.
  *                   - Functional slots.
  ******************************************************************************/
@@ -35,7 +35,7 @@ void MainController::slot_update_data_from_settings()
  *             Name: slot_retrieveDMM_data
  *      Function ID: 751
  *      Create date: 01/04/2019
- * Last modify date: 29/04/2019
+ * Last modify date: 30/04/2019
  *      Description: Slot for retrieving data from DMM when capture timer
  *                   timeout is reached.
  ******************************************************************************/
@@ -44,27 +44,35 @@ void MainController::slot_retrieveDMM_data(QString received_data)
 #ifdef MAINCONTROLLER_DEBUG
     qDebug() << "+ MainController: " << __FUNCTION__ ;
 #endif
-    qint64 elapsed_time = _elapsed_timer.elapsed();
-    qint64 this_measurement_time = elapsed_time - _previous_elapsed_time;
-    _previous_elapsed_time = elapsed_time;
+    if(_idn_command!=MAINCONTROLLER_IDN_COMMAND){
+        qint64 elapsed_time = _elapsed_timer.elapsed();
+        qint64 this_measurement_time = elapsed_time - _previous_elapsed_time;
+        _previous_elapsed_time = elapsed_time;
 
-    _data_read_buffer = received_data;
-    _main_window->updateMeasurement_value(received_data.toDouble());
+        _data_read_buffer = received_data;
+        _main_window->updateMeasurement_value(received_data.toDouble());
 
-    if(_continue_sampling_flag){
-        _chart_controller->addOne_new_point(static_cast<int>(this_measurement_time), received_data.toDouble());
+        if(_continue_sampling_flag){
+            _chart_controller->addOne_new_point(static_cast<int>(this_measurement_time), received_data.toDouble());
 
-        if(_command_panel->getSaveFlag()){
-            Global_Functions::appendOne_line(_command_panel->getSavePath(),QStringList() << QString::number(elapsed_time/1000.0)  << QString::number(received_data.toDouble(), 'f', 7));
+            if(_command_panel->getSaveFlag()){
+                Global_Functions::appendOne_line(_command_panel->getSavePath(),QStringList() << QString::number(elapsed_time/1000.0)  << QString::number(received_data.toDouble(), 'f', 7));
+            }
         }
-    }
-
 #ifdef MAINCONTROLLER_DEBUG
-//    qint64 elapsed_time = _elapsed_timer.elapsed() - _previous_elapsed_time;
-    qDebug() << "+ MainController: " << __FUNCTION__ << " The measurement operation took: " << this_measurement_time << " milliseconds";
-    qDebug() << "+ MainController: " << __FUNCTION__ << "- received_data: " << received_data;
+         qDebug() << "+ MainController: " << __FUNCTION__ << " The measurement operation took: " << this_measurement_time << " milliseconds";
+         qDebug() << "+ MainController: " << __FUNCTION__ << "- received_data: " << received_data;
 
 #endif
+    } else {
+
+#ifdef MAINCONTROLLER_DEBUG
+        qDebug() << "+ MainController: " << __FUNCTION__ << "- received_data: " << received_data;
+
+#endif
+        _idn_command=!MAINCONTROLLER_IDN_COMMAND;
+        _DMM_controller->closeSerial();
+    }
 }
 
 /******************************************************************************
@@ -124,4 +132,17 @@ void MainController::slot_updateSampling_timer()
         _main_window->setSTOP();
         setEnable_command_and_settings(true);
     }
+}
+
+
+/******************************************************************************
+ *             Name: slot_startIDN_test
+ *      Function ID: 754
+ *      Create date: 30/04/2019
+ * Last modify date: 30/04/2019
+ *      Description: Slot for starting IDN test.
+ ******************************************************************************/
+void MainController::slot_startIDN_test()
+{
+    startIDN_test();
 }

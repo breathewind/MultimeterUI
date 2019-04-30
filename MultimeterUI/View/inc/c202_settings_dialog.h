@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 18/03/2019
+ * Last modify date: 30/03/2019
  *      Description: Settings dialog of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -62,10 +62,14 @@ private slots:
     /** Function 710: Slot for Rescan push button clicked. */
     void on_pushButton_Rescan_clicked();
 
+    /** Function 711: Slot for Test Connection push button clicked. */
+    void on_pushButton_DMM_Test_Connection_clicked();
 
 signals:
     /** Signal 001: Signal emitted when accept button is clicked. */
     void signal_accept_button_clicked();
+    /** Signal 001: Signal emitted when test connection button is clicked. */
+    void signal_test_connection_button_clicked();
 };
 
 #endif // C202_SETTINGS_DIALOG_H

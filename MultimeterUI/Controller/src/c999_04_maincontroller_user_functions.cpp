@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 01/04/2019
- * Last modify date: 29/04/2019
+ * Last modify date: 30/04/2019
  *      Description: Main window controller.
  *                   - User Functions.
  ******************************************************************************/
@@ -31,11 +31,18 @@ void MainController::UpdateSettings()
  *             Name: UpdateSettings
  *      Function ID: 302
  *      Create date: 01/04/2019
- * Last modify date: 29/04/2019
+ * Last modify date: 30/04/2019
  *      Description: Start meausuremnt.
  ******************************************************************************/
 void MainController::startMeasurement()
 {
+    _run_timer->start(static_cast<int>(COMMAND_PANEL_MINIMUM_SAMPLING_PERIOD*1000)+MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT/10);
+    /** Start elapse timer */
+    _previous_elapsed_time = 0;
+    _elapsed_timer.start();
+    _main_window->updateMeasurement_time(_elapsed_timer.elapsed());
+
+
 /** Set measurement information */
     QString chart_title;
     QString y_unit;
@@ -162,4 +169,28 @@ void MainController::appendOutput_file(QString filepath, QString data_line)
         out_stream.flush();
         output_file.close();
     }
+}
+
+/******************************************************************************
+ *             Name: startIDN_test
+ *      Function ID: 307
+ *      Create date: 30/04/2019
+ * Last modify date: 30/04/2019
+ *      Description: Start IND test.
+ ******************************************************************************/
+void MainController::startIDN_test()
+{
+    /** Serial port configuration */
+    _DMM_controller->setPortName(_dmm_port);
+    _DMM_controller->setBaudRate(__serial_definitions.getBaudrate(_dmm_baudrate));
+    _DMM_controller->setParity(static_cast<QSerialPort::Parity>(__serial_definitions.getParity(_dmm_parity)));
+    _DMM_controller->setDataBits(static_cast<QSerialPort::DataBits>(__serial_definitions.getDataBits(_dmm_databits)));
+    _DMM_controller->setStopBits(static_cast<QSerialPort::StopBits>(__serial_definitions.getStopBits(_dmm_stopbits)));
+    _DMM_controller->setFlowControl(static_cast<QSerialPort::FlowControl>(__serial_definitions.getFlowcontrol(_dmm_flowcontrol)));
+
+    _DMM_controller->startSerial();
+
+    _idn_command = MAINCONTROLLER_IDN_COMMAND;
+    _meausrement_command = "*IDN?";
+    sendMeasurement_request();
 }

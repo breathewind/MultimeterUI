@@ -1,7 +1,7 @@
 /******************************************************************************
  *           Author: Wenlong Wang
  *      Create date: 14/03/2019
- * Last modify date: 03/04/2019
+ * Last modify date: 30/04/2019
  *      Description: Settings dialog of Multimeter application.
  *
  *  Function Number: 0XX - Normal logic functions
@@ -190,4 +190,16 @@ void Settings_Dialog::on_pushButton_Apply_clicked()
 void Settings_Dialog::on_pushButton_Rescan_clicked()
 {
     rescanSerial_port();
+}
+
+/******************************************************************************
+ *             Name: on_pushButton_DMM_Test_Connection_clicked
+ *      Function ID: 711
+ *      Create date: 30/04/2019
+ * Last modify date: 30/04/2019
+ *      Description: Slot for Test Connection push button clicked.
+ ******************************************************************************/
+void Settings_Dialog::on_pushButton_DMM_Test_Connection_clicked()
+{
+    emit signal_test_connection_button_clicked();
 }

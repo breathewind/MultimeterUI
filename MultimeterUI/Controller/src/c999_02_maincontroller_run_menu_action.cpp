@@ -11,7 +11,7 @@
  *             Name: handleStart
  *      Function ID: 236
  *      Create date: 18/02/2019
- * Last modify date: 03/04/2019
+ * Last modify date: 30/04/2019
  *      Description: Function for handle operations related to Start.
  ******************************************************************************/
 void MainController::handleStart()
@@ -26,7 +26,6 @@ void MainController::handleStart()
                                              _command_panel->getSaveFlag(),
                                              _command_panel->getSavePath());
 
-
     /** Serial port configuration */
     _DMM_controller->setPortName(_dmm_port);
     _DMM_controller->setBaudRate(__serial_definitions.getBaudrate(_dmm_baudrate));
@@ -36,14 +35,6 @@ void MainController::handleStart()
     _DMM_controller->setFlowControl(static_cast<QSerialPort::FlowControl>(__serial_definitions.getFlowcontrol(_dmm_flowcontrol)));
 
     _DMM_controller->startSerial();
-
-    _run_timer->start(static_cast<int>(COMMAND_PANEL_MINIMUM_SAMPLING_PERIOD*1000)+MULTIMETERUI_DEFAULT_RUN_TIMER_TIMEOUT/10);
-    /** Start elapse timer */
-    _previous_elapsed_time = 0;
-    _elapsed_timer.start();
-    _main_window->updateMeasurement_time(_elapsed_timer.elapsed());
-
-    _DMM_controller->writeDMM_command(":SYST:REM",false);
 
     setEnable_command_and_settings(false);
 
