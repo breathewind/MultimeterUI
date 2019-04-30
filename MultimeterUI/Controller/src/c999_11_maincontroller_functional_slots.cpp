@@ -144,5 +144,15 @@ void MainController::slot_updateSampling_timer()
  ******************************************************************************/
 void MainController::slot_startIDN_test()
 {
-    startIDN_test();
+
+    slot_update_data_from_settings();
+//    startIDN_test();
+    QProcess p;
+    p.setWorkingDirectory("C:\\Qt\\");
+    p.start(QString("%1 %2 %3").arg("python").arg("Check_connection.py").arg(_dmm_port));
+
+//    p.start(QString("cd"));
+    p.waitForFinished(-1);
+    QString p_stdout = p.readAllStandardOutput();
+    qDebug() << p_stdout;
 }

@@ -41,6 +41,7 @@
 
 #include <QObject>
 #include <QElapsedTimer>
+#include <QProcess>
 
 #include "h000_global_parameters.h"
 #include "Entities/inc/c950_global_functions.h"

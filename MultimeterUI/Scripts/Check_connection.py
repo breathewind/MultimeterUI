@@ -2,10 +2,10 @@
 import struct
 import serial
 import time
-
+import sys
 ser = serial.Serial()
 # Configuration of serial port
-ser.port = "/dev/tty.usbserial"
+ser.port = sys.argv[1]
 ser.baudrate = 9600
 ser.bytesize = serial.EIGHTBITS
 ser.parity = serial.PARITY_NONE
@@ -20,24 +20,17 @@ try:
 except(e):
 	print("Cannot open serial port: {}".format(str(e)))
 	exit()
-print(ser.isOpen())
 
-print("Serial start")
-
-# command = "*IDN?"
-
-command = ":SYST:REM;"
-ser.write(command.encode("utf-8"))
-ser.write("\n".encode("utf-8"))
-# ret = ser.read_until().decode("utf-8")
-
-# command = "MEASure:RESistance?"
-command = ":MEAS:VOLT:DC?"
+command = "*IDN?\n"
 
 ser.write(command.encode("utf-8"))
-ser.write("\n".encode("utf-8"))
+
 ret = ser.read_until().decode("utf-8")
 
-print("return value: ", ret)
+print(ret)
+
+ser.write(':SYST:REM\n'.encode("ASCII"))
+ser.write(':MEAS:VOLT:DC?\n'.encode("ASCII"))
+print(ser.readline().decode("ASCII"))
 
 ser.close()

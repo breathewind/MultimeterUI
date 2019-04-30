@@ -180,6 +180,7 @@ void MainController::appendOutput_file(QString filepath, QString data_line)
  ******************************************************************************/
 void MainController::startIDN_test()
 {
+    slot_update_data_from_settings();
     /** Serial port configuration */
     _DMM_controller->setPortName(_dmm_port);
     _DMM_controller->setBaudRate(__serial_definitions.getBaudrate(_dmm_baudrate));
